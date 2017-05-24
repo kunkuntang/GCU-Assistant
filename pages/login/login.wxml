@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="operate-panel">
+    <button bindtap="getUserInfo">登陆</button>
+  </view>
+  <view class="classname">
+    login message: {{loginMes}}
+  </view>
+</view>

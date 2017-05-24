@@ -1,12 +1,25 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
+  <view bindtap="bindViewTap" class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text>欢迎到来</text>
+    <text>欢迎使用</text>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
-  <view>
-    <text class="manager">我是管理员</text>
-    <text class="buyer">我是买书的</text>
+  <view class="section">
+    <view class="section__title"></view>
+    <picker bindchange="bindSelectCollege" value="{{collegeIdx}}" range="{{collegeArray}}">
+      <button>选择学院</button>
+    </picker>
+    <picker mode="selector" bindchange="bindSelectMajor" value="{{majorIdx}}" range="{{majorArray[collegeIdx]}}">
+      <button>选择班级</button>
+    </picker>
+    <view class="picker">
+      {{collegeArray[collegeIdx]}}=>{{majorArray[collegeIdx][majorIdx]}}
+    </view>
+  </view>
+  <view class="operate-panel">
+    <navigator url="/pages/login/login" hover-class="navigator-hover">
+      <button>确定</button>
+    </navigator>
   </view>
 </view>

@@ -16,21 +16,14 @@
   color: #aaa;
 }
 
-.manager,
-.buyer{
-  width: 100px;
-  height: 100px;
-  text-align: center;
-  line-height: 100px;
-  border-radius: 50%;
-  float: left;
-  color: #ffffff;
+.stuNum{
+  margin-top: 50rpx;
+  border-bottom: 1px solid #aaa;
+  padding-left: 10rpx;
+  font-size: 0.8rem;
 }
 
-.manager {
-  background-color: red;
+.operate-panel{
+  margin-top: 150rpx;
 }
 
-.buyer {
-  background-color: blue;
-}
