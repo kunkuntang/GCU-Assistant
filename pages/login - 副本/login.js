@@ -1,39 +1,39 @@
 var app = getApp();
-
-function _next() {
-  var that = this;
-  var speed = 1;
-  if (this.data.progress >= this.data.stepArr[this.data.step]) {
-    
-    return true;
-  }
-  this.setData({
-    progress: this.data.progress + speed
-  });
-  setTimeout(function () {
-    _next.call(that);
-  }, 20);
-}
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    stepArr: ['', 33.3, 66.6, 100],
-    step: 0,
-    progress: 0,
     userInfo: {
       nickName: 'xingkongus',
       avatarUrl: '../../images/home.png'
-    }
+    },
+    majorBtnText: '选择专业',
+    collegeBtnText: '选择学院',
+    majorArray: [
+      ['软件', '计科', '网络', '信息'],
+      ['国商', '英语']
+    ],
+    collegeArray: ['计算机', '外国语'],
+    collegeIdx: 0,
+    majorIdx: 0
   },
-  next: function (e) {
+  bindSelectCollege: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      step: ++this.data.step
+      collegeIdx: e.detail.value,
+      // collegeBtnText: '软件',
+      collegeBtnText: this.data.collegeArray[e.detail.value],
+      majorIdx: 0
     })
-    _next.call(this)
+  },
+  bindSelectMajor: function (e) {
+    console.log('bindSelectMajor value', e.detail.value)
+    this.setData({
+      majorIdx: e.detail.value,
+      majorBtnText: this.data.majorArray[this.data.collegeIdx][e.detail.value]
+    })
   },
   login: function (e) {
     wx.navigateTo({

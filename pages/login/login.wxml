@@ -1,25 +1,26 @@
 <!--index.wxml-->
+<include src="progress.wxml" data="{{progress: 33.3}}" />
+<!--<import src="./components/progress.wxml" />
+<template is="progress"/>-->
 <view class="container">
   <view bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text>欢迎使用</text>
+    <view class="assign-con">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="double-arrow">⇆</text>
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <text class="weclome">欢迎使用</text>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
-  <view class="section">
-    <view class="section__title"></view>
-    <picker bindchange="bindSelectCollege" value="{{collegeIdx}}" range="{{collegeArray}}">
-      <button>选择学院</button>
-    </picker>
-    <picker mode="selector" bindchange="bindSelectMajor" value="{{majorIdx}}" range="{{majorArray[collegeIdx]}}">
-      <button>选择班级</button>
-    </picker>
-    <view class="picker">
-      {{collegeArray[collegeIdx]}}=>{{majorArray[collegeIdx][majorIdx]}}
+  <view class="form-con">
+    <view class="input-con">
+      <input class="input" type="text" placeholder="请输入代号" confirm-type="next" maxlength="12" />
     </view>
+    <button bindtap="next" class="next" size="mini">下一步</button>
   </view>
-  <view class="operate-panel">
+  <!--<view class="operate-panel">
     <navigator url="/pages/index/index" hover-class="navigator-hover">
       <button>确定</button>
     </navigator>
-  </view>
+  </view>-->
 </view>

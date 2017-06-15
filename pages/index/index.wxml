@@ -4,8 +4,8 @@
     <view class="book-pic-con">
       <image class="book-pic" src="{{item.bookPic}}"></image>  
     </view>
-    <view class="book-content">
-        <text>{{item.bookName}}</text>
+    <view class="book-content" bindtap="selectBoook">
+      <text>{{item.bookName}}</text>
       <text>{{item.bookPrice}}</text>
       <text>{{item.bookDiscount}}</text>
       <icon type="success" size="23" class="selected icon" />
