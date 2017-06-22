@@ -1,5 +1,10 @@
 <!--index.wxml-->
-<include src="progress.wxml" data="{{progress: 33.3}}" />
+<import src="pages/codeInput.wxml" />
+<import src="pages/baseInfo.wxml" />
+<import src="pages/phoneInput.wxml" />
+
+<include src="components/progress.wxml" data="{{progress: 33.3}}" />
+
 <!--<import src="./components/progress.wxml" />
 <template is="progress"/>-->
 <view class="container">
@@ -12,12 +17,10 @@
     <text class="weclome">欢迎使用</text>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
-  <view class="form-con">
-    <view class="input-con">
-      <input class="input" type="text" placeholder="请输入代号" confirm-type="next" maxlength="12" />
-    </view>
-    <button bindtap="next" class="next" size="mini">下一步</button>
-  </view>
+  <template is="{{pageArr[step]}}"/>
+
+  <!--<include src="components/operationPanel.wxml" />-->
+  
   <!--<view class="operate-panel">
     <navigator url="/pages/index/index" hover-class="navigator-hover">
       <button>确定</button>

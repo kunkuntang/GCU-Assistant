@@ -29,18 +29,23 @@
 }
 
 .userinfo-nickname {
+  margin-bottom: 80rpx;
   color: #aaa;
 }
 
 .form-con {
-  width: 400rpx;
-  margin-top: 140rpx;
+  height: 250rpx;
+}
+
+.input-group {
+  width: 500rpx;
   font-size: 32rpx;
+  margin-bottom: 20rpx;
   display: flex;
 }
 
 .input-con {
-  flex: 3;
+  flex: 4;
 }
 
 .input-con .input{
@@ -50,12 +55,27 @@
   background-color: #fff;
 }
 
-.form-con .next {
-  flex: 1;
-  margin-left: 10rpx;
+.input-group .title {
+  flex: 2;
+  margin-right: 10rpx;
+  text-align: right;
 }
 
 .operate-panel{
-  margin-top: 150rpx;
+  width: 440rpx;
+  margin-left: 60rpx;
+  /*margin-top: 50rpx;*/
+  /*display: flex;*/
+  /*justify-content: space-between;*/
+  /*justify-content: flex-end;*/
+}
+
+.operate-panel .pre,
+.operate-panel .next {
+  margin: 0;
+}
+
+.operate-panel .next {
+  float: right;
 }
 

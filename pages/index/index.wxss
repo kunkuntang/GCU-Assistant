@@ -27,6 +27,7 @@
   padding-right: 30rpx;
 }
 
-.book .icon{
-
+.book .select-con{
+  text-align: center;
+  flex: 1;
 }

@@ -1,0 +1,5 @@
+<view class="operate-panel">
+  <!--<button bindtap="pre" class="pre" size="mini" hidden="{{step === 0}}">上一步</button>-->
+  <button bindtap="pre" class="pre" size="mini">上一步</button>
+  <button bindtap="next" class="next" size="mini">下一步</button>
+</view>
