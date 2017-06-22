@@ -31,3 +31,30 @@
   text-align: center;
   flex: 1;
 }
+
+.opertion-con {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.opertion-con .sum-price {
+  font-size: 14px;
+  margin-left: 50rpx;
+}
+
+.opertion-con .price {
+  font-size: 18px;
+  color: red;
+  margin-right: 10rpx;
+}
+
+.opertion-con .submit-btn {
+  float: right;
+  margin-right: 40rpx;
+}
