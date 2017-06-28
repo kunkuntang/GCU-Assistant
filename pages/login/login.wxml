@@ -20,7 +20,7 @@
   <template is="{{pageArr[step]}}"/>
 
   <!--<include src="components/operationPanel.wxml" />-->
-  
+
   <!--<view class="operate-panel">
     <navigator url="/pages/index/index" hover-class="navigator-hover">
       <button>确定</button>

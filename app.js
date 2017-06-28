@@ -11,6 +11,7 @@ App({
   getUserInfo: function (cb) {
     let that = this;
     var user = new Bmob.User();//开始注册用户
+    console.log('user', user)
     console.log(this.globalData)
     if (!this.globalData.userInfo) {
       wx.login({

@@ -45,21 +45,24 @@ Page({
     }
   },
   pre: function (e) {
-    this.setData({
-      step: --this.data.step
-    })
-    _pre.call(this)
+    if (this.data.step > 0 ) {
+      this.setData({
+        step: --this.data.step
+      })
+      _pre.call(this)
+    }
   },
   next: function (e) {
     if (this.data.step === 2) {
       wx.navigateTo({
         url: '/pages/index/index',
       })
+    } else {
+      this.setData({
+        step: ++this.data.step
+      })
+      _next.call(this)
     }
-    this.setData({
-      step: ++this.data.step
-    })
-    _next.call(this)
   },
   login: function (e) {
     wx.navigateTo({
