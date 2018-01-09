@@ -1,22 +1,22 @@
-<!--index.wxml-->
-<view class="booklist">
-  <view wx:for="{{bookList}}" class="book" bindtap="selectBook" data-index="{{index}}">
-    <view class="book-pic-con">
-      <image class="book-pic" src="{{item.bookPic}}"></image>  
+<view class='page'>
+
+  <view class='page__bd page__bd_spacing'>
+    <view class='avatar-con'>
+      <image style='width: 200rpx; height: 200rpx;' mode='aspectFit' src='{{src}}'></image>
     </view>
-    <view class="book-content">
-      <text>{{item.bookName}}</text>
-      <text>{{item.bookPrice}}</text>
-      <text>{{item.bookDiscount}}</text>
-    </view>
-    <view class="select-con">
-      <icon type="success" size="23" class="selected icon" hidden="{{!item.isSelected}}" />
+    <navigator url='/pages/login/login' open-type='navigate'>点击设置班级</navigator> 
+     <!-- <text>14级软件4班</text>  -->
+  </view>
+
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-grids">
+      <block wx:for="{{grids}}" wx:key="*this">
+        <navigator url="{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../../images/home.png" />
+          <view class="weui-grid__label">{{item.name}}</view>
+        </navigator>
+      </block>
     </view>
   </view>
-  <view class="opertion-con">
-  <view class="sum-price">
-    总价：<text class="price">{{sumPrice}}</text>元  
-  </view>
-    <button class="submit-btn" size="mini">提交订单</button>
-  </view>
+
 </view>

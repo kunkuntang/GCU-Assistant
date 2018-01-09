@@ -1,29 +1,63 @@
 <!--index.wxml-->
-<import src="pages/codeInput.wxml" />
-<import src="pages/baseInfo.wxml" />
+<import src="pages/classInput.wxml" />
 <import src="pages/phoneInput.wxml" />
+<import src="pages/baseInfo.wxml" />
 
-<include src="components/progress.wxml" data="{{progress: 33.3}}" />
-
-<!--<import src="./components/progress.wxml" />
-<template is="progress"/>-->
-<view class="container">
-  <view bindtap="bindViewTap" class="userinfo">
-    <view class="assign-con">
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="double-arrow">⇆</text>
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+<view class="page" wx:if="{{isFinish}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="93"></icon>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">添加成功</view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button class="weui-btn" type="primary" bindtap='mainBtnAction'>完成</button>
+            </view>
+        </view>
+        <view class="weui-msg__extra-area">
+            <view class="weui-footer">
+                <view class="weui-footer__links">
+                    <navigator url="" class="weui-footer__link">底部链接文本</navigator>
+                </view>
+                <view class="weui-footer__text">Copyright © 2008-2016 weui.io</view>
+            </view>
+        </view>
     </view>
-    <text class="weclome">欢迎使用</text>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+</view>
+<view wx:else>
+  <include src="components/progress.wxml" data="{{progress: 33.3}}" />
+
+  <!--<import src="./components/progress.wxml" />
+  <template is="progress"/>-->
+  <view class="page">
+    <view class='page__bd'>
+      <view class="userinfo">
+        <view class="assign-con">
+          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+          <text class="double-arrow">⇆</text>
+          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        </view>
+        <text class="weclome">欢迎使用</text>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </view>
+      <template is="{{pageArr[step]}}" data="{{...pickerData}}"/>
+
+      <!--<include src="components/operationPanel.wxml" />-->
+
+      <!--<view class="operate-panel">
+      <navigator url="/pages/index/index" hover-class="navigator-hover">
+        <button>确定</button>
+      </navigator>
+    </view>-->
+    <view class='hasNoClass' bindtap='addClass'>没有自己的班级？</view>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="next">{{step < 3 ? '下一步' : '完成'}}</button>
+      </view>
+      <view class="weui-btn-area" wx:if="{{step < 3}}">
+        <button class="weui-btn" type="default" bindtap="cancel">{{step < 2 ? '取消' : '跳过'}}</button>
+      </view>
+    </view>
   </view>
-  <template is="{{pageArr[step]}}"/>
-
-  <!--<include src="components/operationPanel.wxml" />-->
-
-  <!--<view class="operate-panel">
-    <navigator url="/pages/index/index" hover-class="navigator-hover">
-      <button>确定</button>
-    </navigator>
-  </view>-->
 </view>

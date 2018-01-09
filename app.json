@@ -1,7 +1,13 @@
 {
   "pages": [
+    "pages/welcome/welcome",
     "pages/login/login",
+    "pages/messagePage/messagePage",
     "pages/index/index",
+    "pages/bookList/bookList",
+    "pages/user/user",
+    "pages/map/map",
+    "pages/contacts/contacts",
     "pages/logs/logs"
   ],
   "window": {
@@ -9,5 +15,17 @@
     "navigationBarBackgroundColor": "#f6f8f9",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "用户"
+      }
+    ]
   }
 }

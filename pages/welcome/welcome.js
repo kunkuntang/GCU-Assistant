@@ -1,22 +1,25 @@
-//app.js
-const Bmob = require('utils/bmob.js');
+const Bmob = require('../../utils/bmob.js');
 Bmob.initialize("6636a71c682fc816bf7f4d3678561cff", "05ea04f70d33f065e52ded897c5f4765");
-let app = null
 
-App({
-  onLaunch: function () {
-    app = this
-    // login()
+const app = getApp()
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
   },
-  globalData: {
-    userInfo: null,
-    mesInfo: {
-      Title: '操作成功',
-      hasAssBtn: false,
-      content: '',
-      assBtnTxt: '',
-      mainBtnTxt: ''
-    }
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    login()
+  },
+
+  login: function () {
+    // login()
   }
 })
 
@@ -75,9 +78,11 @@ function createNewUser(openId) {
       if (res.length) {
         // 旧用户
         let info = res[0].attributes
-        console.log('info', info)
+        app.globalData.userBombId = res[0].id
+        console.log('res:', res)
+        console.log(info)
         console.log('database already login')
-        wx.redirectTo({
+        wx.switchTab({
           url: '/pages/index/index',
         })
       } else {
@@ -96,6 +101,8 @@ function createNewUser(openId) {
             success: function (result) {
               // 自动绑定之前的账号
               console.log("user创建成功, objectId:" + result.id);
+              app.globalData.userId = result.id
+              
               wx.redirectTo({
                 url: '/pages/login/login',
               })

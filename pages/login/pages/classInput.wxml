@@ -1,0 +1,47 @@
+<template name="classInput">
+  <view class="weui-cells__title">请选择所属学院</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__bd">
+        <picker mode="selector" bindchange="bindAcademyChange" value="{{academyIdx}}" range="{{academyArr}}" range-key="academyName" data-type='academyIdx'>
+          <view class="weui-select">{{academyArr[academyIdx].academyName}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__title">请选择所属专业</view>
+
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__bd">
+        <picker mode="selector" bindchange="bindPickerChange" value="{{majorIdx}}" range="{{majorArr}}" range-key='majorName' data-type='majorIdx'>
+          <view class="weui-select">{{majorArr[majorIdx].majorName}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{isAddClass}}">
+    <view class="weui-cells__title">请输入所属班级</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__bd">
+                <input class="weui-input" bindinput='bindKeyInput' data-field='belongClass' placeholder="请输入所属班级" />
+            </view>
+        </view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="weui-cells__title">请选择所属班级</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__bd">
+          <picker mode="selector" bindchange="bindPickerChange" value="{{classIdx}}" range="{{classArr}}" data-type='class'>
+            <view class="weui-select">{{classArr[classIdx]}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
