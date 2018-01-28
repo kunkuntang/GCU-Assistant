@@ -1,0 +1,24 @@
+<!--pages/showAllBookBills/showAllBookBills.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">购书单列表</view>
+    <view class="page__desc"></view>
+  </view>
+  <view class="page__bd">
+
+    <view class="weui-panel">
+      <view class="weui-panel__hd">下面是你购买过的记录</view>
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text" wx:for="{{bookBillsArr}}" wx:key="{{index}}" bindtap='navigateToBill' data-billId="{{item.bookBillId}}">
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{item.bookListName}}</view>
+                <view class="weui-media-box__desc">{{item.belongAcaName}} - {{item.belongMajName}}</view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">时间</view>
+                    <view class="weui-media-box__info__meta">{{item.updateTime}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+  </view>
+</view>

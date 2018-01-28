@@ -1,22 +1,56 @@
 <!--index.wxml-->
-<view class="booklist">
+<!-- <view class="booklist">
   <view wx:for="{{bookList}}" class="book" bindtap="selectBook" data-index="{{index}}">
     <view class="book-pic-con">
-      <image class="book-pic" src="{{item.bookPic}}"></image>  
+      <image class="book-pic" src="{{item.bookPic}}"></image>
     </view>
     <view class="book-content">
       <text>{{item.bookName}}</text>
       <text>{{item.bookPrice}}</text>
-      <text>{{item.bookDiscount}}</text>
+      <text>{{item.bookDis}}</text>
     </view>
     <view class="select-con">
       <icon type="success" size="23" class="selected icon" hidden="{{!item.isSelected}}" />
     </view>
   </view>
   <view class="opertion-con">
-  <view class="sum-price">
-    总价：<text class="price">{{sumPrice}}</text>元  
-  </view>
+    <view class="sum-price">
+      总价：
+      <text class="price">{{sumPrice}}</text>元
+    </view>
     <button class="submit-btn" size="mini">提交订单</button>
+  </view>
+</view> -->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">{{bookListName}}</view>
+    <view class="page__desc">{{academyName}} - {{majorName}}</view>
+  </view>
+  <view class="page__bd">
+
+    <view class="weui-cells weui-cells_after-title">
+      <checkbox-group bindchange="checkboxChange">
+        <label class="weui-cell weui-check__label" wx:for="{{selectBookArr}}" wx:key="{{index}}">
+          <checkbox class="weui-check" value="{{item.objectId}}" checked="{{item.checked}}" />
+          <view class="weui-cell__bd book">
+            <view class="book-content">
+              <text>{{item.bookName}}</text>
+              <text>{{item.bookFinalPri}}元</text>
+            </view>
+          </view>
+          <view class="weui-cell__hd weui-check__hd_after-checkbox">
+            <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+            <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+          </view>
+        </label>
+      </checkbox-group>
+    </view>
+    <view class="opertion-con">
+      <view class="sum-price">
+        总价：
+        <text class="price">{{sumPrice}}</text>元
+      </view>
+      <button class="submit-btn" size="mini" bindtap='submitBill'>提交订单</button>
+    </view>
   </view>
 </view>

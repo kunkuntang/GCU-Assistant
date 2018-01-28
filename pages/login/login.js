@@ -76,16 +76,7 @@ Page({
     let lastStep = this.data.pageArr.length - 2
     console.log(lastStep)
     if (curStep === lastStep) {
-      // wx.navigateTo({
-      //   url: '/pages/index/index',
-      // })
-      
       saveUserInfo(this.data.pickerData).then((value)=>{
-        // app.globalData.mesInfo.title = '添加成功'
-        // app.globalData.mesInfo.mainBtnTxt = '完成'
-        // wx.redirectTo({
-        //   url: '/pages/messagePage/messagePage',
-        // })  
         this.setData({
           isFinish: true
         })
@@ -163,11 +154,6 @@ Page({
     //   classIdx: e.detail.value
     // })
   },
-  login: function (e) {
-    wx.navigateTo({
-      url: '/pages/login/login',
-    })
-  },
   addClass: function(e) {
     let tmpObj = this.data.pickerData
     tmpObj.isAddClass = true
@@ -227,10 +213,11 @@ function saveUserInfo(userData) {
     console.log(userData)
     let User = Bmob.Object.extend("user");
     let userQuery = new Bmob.Query(User);
-    let user = new User();
     let userId = app.globalData.userId
     let belongAcaId = userData.academyArr[userData.academyIdx].academyId
+    let belongAcaName = userData.academyArr[userData.academyIdx].academyName
     let belongMajorId = userData.majorArr[userData.majorIdx].majorId
+    let belongMajorName = userData.majorArr[userData.majorIdx].majorName
     let belongClass = null
     if (userData.isAddClass) {
       belongClass = parseInt(userData.belongClass)
@@ -246,10 +233,17 @@ function saveUserInfo(userData) {
         result.set('stuName', userData.stuName)
         result.set('stuNum', userData.stuNum)
         result.set('belongAcaId', belongAcaId)
+        result.set('belongAcaName', belongAcaName)
         result.set('belongMajorId', belongMajorId)
+        result.set('belongMajorName', belongMajorName)
         result.set('belongClass', belongClass)
         result.save()
-        reslove()
+        app.globalData.userInfo.belongAcademy = belongAcaId
+        app.globalData.userInfo.belongAcademyName = belongAcaName
+        app.globalData.userInfo.belongMajor = belongMajorId
+        app.globalData.userInfo.belongMajorName = belongMajorName
+        app.globalData.userInfo.belongClass = belongClass
+        reslove(userData)
       },
       error: function(result, error) {
         console.log('result', result)

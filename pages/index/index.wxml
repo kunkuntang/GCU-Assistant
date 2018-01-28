@@ -4,7 +4,7 @@
     <view class='avatar-con'>
       <image style='width: 200rpx; height: 200rpx;' mode='aspectFit' src='{{src}}'></image>
     </view>
-    <navigator url='/pages/login/login' open-type='navigate'>点击设置班级</navigator> 
+    <navigator url='/pages/login/login' open-type='navigate' style='text-align: center'> {{setClassTxt}}</navigator> 
      <!-- <text>14级软件4班</text>  -->
   </view>
 

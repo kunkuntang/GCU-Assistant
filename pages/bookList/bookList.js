@@ -1,87 +1,112 @@
+const app = getApp()
+const Bmob = app.Bmob
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    bookList: [
-      {
-        bookId: 0,
-        bookPic: '../../images/home.png',
-        bookName: 'js',
-        bookPrice: 100,
-        bookDiscount: 0.7,
-        isSelected: false
-      },
-      {
-        bookId: 1,
-        bookPic: '../../images/home.png',
-        bookName: 'css',
-        bookPrice: 100,
-        bookDiscount: 0.7,
-        isSelected: false
-      },
-      {
-        bookId: 2,
-        bookPic: '../../images/home.png',
-        bookName: 'nodejs',
-        bookPrice: 100,
-        bookDiscount: 0.7,
-        isSelected: false
-      },
-      {
-        bookId: 3,
-        bookPic: '../../images/home.png',
-        bookName: 'html',
-        bookPrice: 100,
-        bookDiscount: 0.7,
-        isSelected: false
-      }
-    ],
+    bookListName: '',
+    academyName: '',
+    majorName: '',
+    bookList: [],
     selected: [],
-    sumPrice: 0
-  },
-  selectBook: function (e) {
-    var idx = e.currentTarget.dataset.index
-    var tempData = this.data.bookList
-    var bookId = tempData[idx].bookId
-    var isBuy = tempData[idx].isSelected = !this.data.bookList[idx].isSelected
+    sumPrice: 0,
 
-    var tempSelected = this.data.selected
-    var tempSumPrice = this.data.sumPrice
-    if (isBuy) {
-      tempSelected.push(bookId)
-      tempSumPrice += tempData[idx].bookPrice
-    } else {
-      tempSumPrice -= tempData[idx].bookPrice
-      tempSelected.splice(tempSelected.indexOf(bookId), 1)
+    selectBookArr: [],
+  },
+  checkboxChange: function (e) {
+    console.log('checkbox发生change事件，携带value值为：', e.detail.value);
+    let sumPrice = 0
+    var selectBookArr = this.data.selectBookArr, values = e.detail.value;
+    for (var i = 0, lenI = selectBookArr.length; i < lenI; ++i) {
+      selectBookArr[i].checked = false;
+
+      for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
+        if (selectBookArr[i].objectId == values[j]) {
+          selectBookArr[i].checked = true;
+          sumPrice += selectBookArr[i].bookFinalPri
+          break;
+        }
+      }
     }
+
     this.setData({
-      bookList: tempData,
-      selected: tempSelected,
-      sumPrice: tempSumPrice
+      selectBookArr: selectBookArr,
+      sumPrice: sumPrice
+    });
+  },
+  submitBill: function(){
+    let BookBills = Bmob.Object.extend('bookBills')
+    let bill = new BookBills()
+    let tempData = []
+    let sumPrice = this.data.sumPrice
+    let selectBookArr = this.data.selectBookArr
+    for (let i = 0; i < selectBookArr.length; i++) {
+      let curBook = selectBookArr[i]
+      if (curBook.checked)  {
+        tempData.push({
+          bookId: curBook.objectId,
+          bookDisc: curBook.bookDisc,
+          bookName: curBook.bookName,
+          bookPrice: curBook.bookPrice,
+          bookFinalPri: curBook.bookFinalPri
+        })
+      }
+    }
+    
+    bill.save({
+      belongUser: app.globalData.userBmobId,
+      bookListName: app.globalData.bookListName,
+      bookListId: app.globalData.bookListId,
+      belongAcaName: app.globalData.belongAcaName,
+      belongMajName: app.globalData.belongMajName,
+      sumPrice: sumPrice,
+      containBooks: JSON.stringify(tempData)
+    }, {
+      success: function(result) {
+        console.log(result)
+        wx.redirectTo({
+          url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + result.id,
+        })
+      },
+      error: function(result, error){
+        console.log(error)
+      }
     })
-    console.log(tempSelected)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let globalData = app.globalData
+    let newBookList = globalData.booksArr
+    newBookList.forEach((el) => {
+      el.checked = false
+      el.bookFinalPri = parseInt(el.bookPrice) * parseInt(el.bookDisc) * 0.1
+    })
+    this.setData({
+      bookList: newBookList,
+      selectBookArr: newBookList,
+      bookListName: globalData.bookListName,
+      majorName: globalData.belongMajName,
+      academyName: globalData.belongAcaName
+    })
   },
 
   /**
@@ -117,5 +142,6 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  
 })

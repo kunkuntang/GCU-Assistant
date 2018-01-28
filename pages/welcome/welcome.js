@@ -78,7 +78,11 @@ function createNewUser(openId) {
       if (res.length) {
         // 旧用户
         let info = res[0].attributes
-        app.globalData.userBombId = res[0].id
+        app.globalData.userBmobId = res[0].id
+        app.globalData.userInfo.belongMajorId = info.belongMajorId
+        app.globalData.userInfo.belongMajorName = info.belongMajorName
+        app.globalData.userInfo.belongAcaId = info.belongAcaId
+        app.globalData.userInfo.belongAcaName = info.belongAcaName
         console.log('res:', res)
         console.log(info)
         console.log('database already login')

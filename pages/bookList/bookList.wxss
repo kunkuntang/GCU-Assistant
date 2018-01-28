@@ -48,6 +48,10 @@
   margin-left: 50rpx;
 }
 
+.weui-check__hd_after-checkbox{
+  padding-left: .35em;
+}
+
 .opertion-con .price {
   font-size: 18px;
   color: red;

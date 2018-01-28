@@ -1,6 +1,12 @@
+
+
 {
   "pages": [
     "pages/welcome/welcome",
+    "pages/showAllBookBills/showAllBookBills",    
+    "pages/bookBillPreview/bookBillPreview",
+    "pages/bookLists/bookLists",
+    "pages/user/pages/changePwd/changePwd",
     "pages/login/login",
     "pages/messagePage/messagePage",
     "pages/index/index",

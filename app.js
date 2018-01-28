@@ -16,8 +16,11 @@ App({
       content: '',
       assBtnTxt: '',
       mainBtnTxt: ''
-    }
-  }
+    },
+    booksArr: [],
+  },
+  Bmob: Bmob,
+  baseDevUrl: "http://localhost:8010/",
 })
 
 /**

@@ -6,10 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    setClassTxt: '点击设置班级',
     src: '/images/card.png',
     grids: [{
       name: '购书助手',
-      url: '/pages/bookList/bookList'
+      url: '/pages/bookLists/bookLists'
     }, {
       name: '通讯录',
       url: '/pages/contacts/contacts'
@@ -26,7 +27,8 @@ Page({
     console.log('onLoad')
     console.log('globalData', app.globalData)
     this.setData({
-      src: app.globalData.userInfo.avatarUrl
+      src: app.globalData.userInfo.avatarUrl,
+      setClassTxt: app.globalData.userInfo.nickName
     })
   },
 
@@ -41,7 +43,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

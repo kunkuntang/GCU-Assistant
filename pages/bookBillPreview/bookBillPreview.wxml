@@ -1,0 +1,30 @@
+<!--pages/bookBillPreview/bookBillPreview.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">购书清单</view>
+        <view class="page__desc">请认真核对清单信息</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">付款金额</view>
+                    <view class="weui-form-preview__value_in-hd">¥{{sumPrice}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd" wx:for="{{booksArr}}" wx:key="index">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">商品</view>
+                    <view class="weui-form-preview__value">{{item.bookName}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">金额</view>
+                    <view class="weui-form-preview__value">¥{{item.bookFinalPri}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+            </view>
+        </view>
+    </view>
+</view>
