@@ -9,7 +9,7 @@ App({
     // login()
   },
   globalData: {
-    userInfo: null,
+    userInfo: {},
     mesInfo: {
       Title: '操作成功',
       hasAssBtn: false,

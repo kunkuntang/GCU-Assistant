@@ -23,7 +23,8 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                <navigator open-type='navigateBack' delta='3' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" wx:if="{{isEdited}}">返回</navigator>
+                <navigator url="/pages/editBookList/editBookList?bookBillId={{bookBillId}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" wx:else>修改</navigator>
             </view>
         </view>
     </view>

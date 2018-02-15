@@ -72,20 +72,23 @@ Page({
     })
   },
   getBookList: function() {
-    let that = this
-    console.log(this.data.bookListId)
-    let BookList = Bmob.Object.extend('bookList')
-    let bookListQuery = new Bmob.Query(BookList)
-    bookListQuery.get(this.data.bookListId, {
-      success: function (result){
-        console.log(result)
-        app.globalData.bookListName = result.get('bookListName')       
-        app.globalData.bookListId = result.id       
-        app.globalData.belongAcaName = result.get('belongAcaName')
-        app.globalData.belongMajName = result.get('belongMajName')
-        that.getBooksFromBookList()
-      }
+    wx.navigateTo({
+      url: '/pages/bookList/bookList?bookListId=' + this.data.bookListId,
     })
+    // let that = this
+    // console.log(this.data.bookListId)
+    // let BookList = Bmob.Object.extend('bookList')
+    // let bookListQuery = new Bmob.Query(BookList)
+    // bookListQuery.get(this.data.bookListId, {
+    //   success: function (result){
+    //     console.log(result)
+    //     app.globalData.bookListName = result.get('bookListName')       
+    //     app.globalData.bookListId = result.id       
+    //     app.globalData.belongAcaName = result.get('belongAcaName')
+    //     app.globalData.belongMajName = result.get('belongMajName')
+    //     that.getBooksFromBookList()
+    //   }
+    // })
     // wx.request({
     //   method: 'GET',
     //   url: app.baseDevUrl + 'getBookListInfo?bookListId=' + that.data.bookListId,
@@ -119,9 +122,7 @@ Page({
           })
         }
         app.globalData.booksArr = tempData
-        wx.navigateTo({
-          url: '/pages/bookList/bookList',
-        })
+        
       }
     })
     // let that = this

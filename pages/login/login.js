@@ -1,10 +1,9 @@
-const Bmob = require('../../utils/bmob.js');
-Bmob.initialize("6636a71c682fc816bf7f4d3678561cff", "05ea04f70d33f065e52ded897c5f4765");
+const app = getApp()
+const Bmob = app.Bmob
 const Academies = Bmob.Object.extend("academyList");
 const acadeniesQuery = new Bmob.Query(Academies);
 const Majors = Bmob.Object.extend("majorList")
 const majorsQuery = new Bmob.Query(Majors)
-const app = getApp();
 
 function _next() {
   var that = this;
@@ -20,16 +19,6 @@ function _next() {
     _next.call(that);
   }, 20);
 }
-
-let acaToMaj = [
-  {
-    academy: '计算机工程学院',
-    major: ['软件工程', '计算机科学与技术']
-  }, {
-    academy: '珠宝学院',
-    major: ['珠宝鉴定', '珠宝设计']
-  }
-]
 
 Page({
 
@@ -51,7 +40,7 @@ Page({
       majorIdx: 0,
       majorArr: ['软件工程', '计算机科学与技术'],
       classIdx: 0,
-      classArr: [1, 2, 4, 5],
+      classArr: [1, 2, 4, 5, 6,7,8,9,10,11,12,13,14],
       isAddClass: false,
       belongClass: 0
     },
@@ -85,10 +74,37 @@ Page({
 
       })
     } else {
-      this.setData({
-        step: ++this.data.step
-      })
-      _next.call(this)
+      let isValidate = true
+      let tipsMes = ''
+      switch(curStep) {
+        case 0: {
+          if (this.data.pickerData.isAddClass) {
+            if (!this.data.pickerData.belongClass){
+              isValidate = false
+              tipsMes = '班级不能为空'
+            }
+          }
+          break;
+        }
+        case 1: {
+          if (!this.data.pickerData.stuNum || !this.data.pickerData.stuName) {
+            isValidate = false
+            tipsMes = '学号或姓名不能为空'
+          }
+          break;
+        }
+      }
+      if (isValidate) {
+        this.setData({
+          step: ++this.data.step
+        })
+        _next.call(this)
+      } else {
+        wx.showToast({
+          title: tipsMes,
+          icon: 'loading'
+        })
+      }
     }
   },
   bindKeyInput: function (e) {
@@ -150,9 +166,6 @@ Page({
     this.setData({
       pickerData: tmpObj
     })
-    // this.setData({
-    //   classIdx: e.detail.value
-    // })
   },
   addClass: function(e) {
     let tmpObj = this.data.pickerData
@@ -168,6 +181,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+      success: function() {
+
+      }
+    })
     let _this = this
     new Promise((resolve, reject)=> {
       acadeniesQuery.find({
@@ -200,6 +220,7 @@ Page({
         userInfo: app.globalData.userInfo,
         pickerData: tempPickerData
       })
+      wx.hideLoading()
     }, (value) => {
       console.warn('获取信息失败')
     })
@@ -211,7 +232,7 @@ Page({
 function saveUserInfo(userData) {
   return new Promise((reslove, reject) => {
     console.log(userData)
-    let User = Bmob.Object.extend("user");
+    let User = Bmob.Object.extend("_User");
     let userQuery = new Bmob.Query(User);
     let userId = app.globalData.userId
     let belongAcaId = userData.academyArr[userData.academyIdx].academyId
@@ -228,13 +249,16 @@ function saveUserInfo(userData) {
     console.log('belongMajorId: ', belongMajorId)
     userQuery.get(userId, {
       success: function (result) {
+        let Major = Bmob.Object.createWithoutData("majorList", belongMajorId);
+        let Academy = Bmob.Object.createWithoutData("academyList", belongAcaId);
         console.log('success', result.id)
         result.set('stuPhone', userData.stuPhone)
         result.set('stuName', userData.stuName)
         result.set('stuNum', userData.stuNum)
-        result.set('belongAcaId', belongAcaId)
+        result.set('username', userData.stuNum)
+        result.set('belongAcademy', Academy)
         result.set('belongAcaName', belongAcaName)
-        result.set('belongMajorId', belongMajorId)
+        result.set('belongMajor', Major)
         result.set('belongMajorName', belongMajorName)
         result.set('belongClass', belongClass)
         result.save()

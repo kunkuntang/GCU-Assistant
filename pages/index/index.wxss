@@ -12,3 +12,29 @@
   background-color: pink;
   min-height: 200rpx;
 }
+
+.menu-item-con{
+  display: flex;
+  display: -webkit-flex;
+  margin: 20rpx;
+  padding: 10rpx;
+  box-sizing: content-box;
+  background-color: #fff;
+  box-shadow: #c5c5c5 1px 1px 3px 0px;
+  align-items: center;
+}
+
+.menu-item-con_active {
+  background-color: #f8f8f8;
+}
+
+.menu-item__icon {
+  flex: 1;
+  height: 150rpx;
+}
+
+.menu-item__label {
+  flex: 3;
+  padding-left: 20rpx;
+  box-sizing: border-box;
+}

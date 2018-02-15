@@ -10,7 +10,8 @@ Page({
   data: {
     bookBillId: '',
     sumPrice: '',
-    booksArr: []
+    booksArr: [],
+    isEdited: false
   },
 
   /**
@@ -19,9 +20,9 @@ Page({
   onLoad: function (option) {
     console.log(option)    
     let that = this
+    let bookBillId = option.bookBillId
     let BookBills = Bmob.Object.extend('bookBills')
     let bookBillsQuery = new Bmob.Query(BookBills)
-    let bookBillId = option.bookBillId
     console.log(bookBillId)
     bookBillsQuery.get(bookBillId, {
       success: function (result) {
@@ -29,7 +30,8 @@ Page({
         let booksArr = result.get('containBooks')
         that.setData({
           sumPrice: result.get('sumPrice'),
-          booksArr: JSON.parse(booksArr)
+          booksArr: JSON.parse(booksArr),
+          isEdited: option.isEdited
         })
       },
       error: function(result, error) {

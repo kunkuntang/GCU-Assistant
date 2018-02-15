@@ -5,7 +5,7 @@
         <view class="weui-label">学号：</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput="bindKeyInput" type="text" placeholder="请输入学号" confirm-type="next" maxlength="12" data-field="stuNum" />
+        <input class="weui-input" bindinput="bindKeyInput" type="number" placeholder="请输入学号" confirm-type="next" maxlength="12" data-field="stuNum" />
       </view>
     </view>
      <view class="weui-cell weui-cell_input">

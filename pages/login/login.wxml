@@ -51,7 +51,7 @@
         <button>确定</button>
       </navigator>
     </view>-->
-    <view class='hasNoClass' bindtap='addClass'>没有自己的班级？</view>
+    <view class='hasNoClass' bindtap='addClass'>手动添加班级</view>
       <view class="weui-btn-area">
         <button class="weui-btn" type="primary" bindtap="next">{{step < 3 ? '下一步' : '完成'}}</button>
       </view>

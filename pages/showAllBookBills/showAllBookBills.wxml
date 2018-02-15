@@ -2,14 +2,14 @@
 <view class="page">
   <view class="page__hd">
     <view class="page__title">购书单列表</view>
-    <view class="page__desc"></view>
+    <view class="page__desc">长按删除购书单</view>
   </view>
   <view class="page__bd">
 
     <view class="weui-panel">
       <view class="weui-panel__hd">下面是你购买过的记录</view>
         <view class="weui-panel__bd">
-            <view class="weui-media-box weui-media-box_text" wx:for="{{bookBillsArr}}" wx:key="{{index}}" bindtap='navigateToBill' data-billId="{{item.bookBillId}}">
+            <view class="weui-media-box weui-media-box_text" wx:for="{{bookBillsArr}}" wx:key="{{index}}" bindtap='navigateToBill' bindlongtap='delBookBill' data-billId="{{item.bookBillId}}" bindtouchstart='touchStart' bindtouchend='touchEnd'>
                 <view class="weui-media-box__title weui-media-box__title_in-text">{{item.bookListName}}</view>
                 <view class="weui-media-box__desc">{{item.belongAcaName}} - {{item.belongMajName}}</view>
                 <view class="weui-media-box__info">

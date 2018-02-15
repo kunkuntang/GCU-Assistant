@@ -1,19 +1,17 @@
-
-
 {
   "pages": [
-    "pages/welcome/welcome",
-    "pages/showAllBookBills/showAllBookBills",    
-    "pages/bookBillPreview/bookBillPreview",
+    "pages/index/index",
     "pages/bookLists/bookLists",
+    "pages/bookList/bookList",
+    "pages/bookBillPreview/bookBillPreview",
+    "pages/editBookList/editBookList",
     "pages/user/pages/changePwd/changePwd",
     "pages/login/login",
-    "pages/messagePage/messagePage",
-    "pages/index/index",
-    "pages/bookList/bookList",
     "pages/user/user",
+    "pages/showAllBookBills/showAllBookBills",    
     "pages/map/map",
     "pages/contacts/contacts",
+    "pages/messagePage/messagePage",
     "pages/logs/logs"
   ],
   "window": {
@@ -26,11 +24,15 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "首页",
+        "selectedIconPath": "images/home-selectedxhdpi.png",
+        "iconPath": "images/homexhdpi.png"
       },
       {
         "pagePath": "pages/user/user",
-        "text": "用户"
+        "text": "用户",
+        "selectedIconPath": "images/user-selectedxhdpi.png",
+        "iconPath": "images/userxhdpi.png"
       }
     ]
   }
