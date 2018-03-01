@@ -1,8 +1,8 @@
 <!--pages/user/pages/changePwd/changePwd.wxml-->
 <view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
   <view class="page__hd">
-    <view class="page__title">Input</view>
-    <view class="page__desc">表单输入</view>
+    <view class="page__title">修改密码</view>
+    <view class="page__desc">此密码用于后台登陆</view>
   </view>
   <view class="page__bd">
     <view class="weui-cells__title">更改后台管理密码</view>

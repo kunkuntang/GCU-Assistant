@@ -1,30 +1,18 @@
-// pages/messagePage.js
-let app = getApp()
+// pages/aboutUs/aboutUs.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    title: "操作成功",
-    hasAssBtn: false,
-    content: ''
+  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      title: app.globalData.mesInfo.title,
-      content: app.globalData.mesInfo.content,
-      mainBtnTxt: app.globalData.mesInfo.mainBtnTxt,
-      hasAssBtn: app.globalData.mesInfo.hasAssBtn,
-      assBtnTxt: app.globalData.mesInfo.assBtnTxt
-    })
-  },
-  mainAction: function(){
-    wx.navigateBack()
+  
   },
 
   /**

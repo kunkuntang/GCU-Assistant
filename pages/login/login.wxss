@@ -39,3 +39,7 @@
   text-align: right;
   color: #00a4ff;
 }
+
+.strongTxt {
+  font-weight: bold;
+}

@@ -10,6 +10,7 @@
         </view>
         <view class="weui-msg__text-area">
             <view class="weui-msg__title">添加成功</view>
+            <view class="weui-msg__desc">个人信息可以在<text class="strongTxt">用户面板</text>中再次修改</view>
         </view>
         <view class="weui-msg__opr-area">
             <view class="weui-btn-area">
@@ -21,7 +22,7 @@
                 <view class="weui-footer__links">
                     <navigator url="" class="weui-footer__link">底部链接文本</navigator>
                 </view>
-                <view class="weui-footer__text">Copyright © 2008-2016 weui.io</view>
+                <view class="weui-footer__text">Copyright © 2018 华广校园助手</view>
             </view>
         </view>
     </view>
@@ -51,7 +52,7 @@
         <button>确定</button>
       </navigator>
     </view>-->
-    <view class='hasNoClass' bindtap='addClass'>手动添加班级</view>
+    <!-- <view class='hasNoClass' bindtap='addClass' wx:if="{{step == 1}}">手动添加班级</view> -->
       <view class="weui-btn-area">
         <button class="weui-btn" type="primary" bindtap="next">{{step < 3 ? '下一步' : '完成'}}</button>
       </view>

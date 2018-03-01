@@ -14,9 +14,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(app.userInfo.avatarUrl)
     this.setData({
-      userAvatar: app.globalData.userInfo.avatarUrl,
-      userName: app.globalData.userInfo.nickName
+      userAvatar: app.userInfo.avatarUrl,
+      userName: app.userInfo.nickName
     })
   },
 

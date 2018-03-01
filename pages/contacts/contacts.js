@@ -1,10 +1,18 @@
+const app = getApp()
+const Bmob = app.Bmob
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    hasSetInfo: false,
+    belongMajName: '',
+    belongAcaName: '',
+    belongClass: '',
+    contactListData: [],
+    listStatus: -1
   },
 
   /**
@@ -25,7 +33,84 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log(app.userInfo.hasSetInfo)
+    this.setData({
+      hasSetInfo: app.userInfo.hasSetInfo,
+    })
     
+    if (!app.userInfo.hasSetInfo) {
+      wx.showModal({
+        title: '请完善信息',
+        content: '完善信息后可以查看本班的通讯录',
+        confirmText: "去完善",
+        cancelText: "暂不",
+        success: function (res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          } else {
+            console.log('用户点击辅助操作')
+          }
+        }
+      });
+      
+    } else {
+      let that = this
+      let userQuery = new Bmob.Query(Bmob.User);
+      let belongMajorId = app.userInfo.belongMajorId
+      let belongClassId = app.userInfo.belongClass
+      console.log('belongMajorId: ', belongMajorId)
+      let majorList = Bmob.Object.createWithoutData('majorList', belongMajorId);
+      userQuery.equalTo('belongMajor', majorList)
+      userQuery.equalTo('belongClass', belongClassId)
+      userQuery.select('stuName')
+      userQuery.select('stuPhone')
+      userQuery.select('stuShortPhone')
+      userQuery.select('allowShowPhone')
+      userQuery.find({
+        success: function(results) {
+          console.log(results)
+          let tempDataArr = []
+          results.forEach(el => {
+            if (el.get('allowShowPhone')) {
+              tempDataArr.push({
+                stuName: el.get('stuName'),
+                stuPhone: el.get('stuPhone') || '(未填写)',
+                stuShortPhone: el.get('stuShortPhone') || '(未填写)'
+              })
+            }
+          })
+          console.log('tempDataArr', tempDataArr)
+          that.setData({
+            belongAcaName: app.userInfo.belongAcaName,
+            belongMajorName: app.userInfo.belongMajorName,
+            belongClass: app.userInfo.belongClass,
+            contactListData: tempDataArr,
+            listStatus: tempDataArr.length ? 1 : 0 
+          })
+
+        }
+      })
+    }
+  },
+  makeCall: function(e) {
+    let telNum = e.currentTarget.dataset.stunum
+    wx.makePhoneCall({
+      phoneNumber: telNum,
+    })
+  },
+
+  addContact: function(e) {
+    console.log(e)
+    let index = e.target.dataset.itemindex
+    let userInfo = this.data.contactListData[index]
+
+    wx.addPhoneContact({
+      firstName: userInfo.stuName,
+      mobilePhoneNumber: userInfo.stuPhone
+    })
   },
 
   /**

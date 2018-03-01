@@ -35,6 +35,7 @@ Page({
       stuName: "",
       stuNum: "",
       stuPhone: "",
+      stuShortPhone: '',
       academyIdx: 0,
       academyArr: [{ academyName: '获取数据失败', academyId: '00000' }],
       majorIdx: 0,
@@ -220,7 +221,7 @@ Page({
         userInfo: app.globalData.userInfo,
         pickerData: tempPickerData
       })
-      wx.hideLoading()
+      setTimeout(wx.hideLoading, 500)
     }, (value) => {
       console.warn('获取信息失败')
     })
@@ -232,9 +233,8 @@ Page({
 function saveUserInfo(userData) {
   return new Promise((reslove, reject) => {
     console.log(userData)
-    let User = Bmob.Object.extend("_User");
-    let userQuery = new Bmob.Query(User);
-    let userId = app.globalData.userId
+    let currentUser = Bmob.User.current();
+    let userQuery = new Bmob.Query(Bmob.User);
     let belongAcaId = userData.academyArr[userData.academyIdx].academyId
     let belongAcaName = userData.academyArr[userData.academyIdx].academyName
     let belongMajorId = userData.majorArr[userData.majorIdx].majorId
@@ -245,14 +245,13 @@ function saveUserInfo(userData) {
     } else {
       belongClass = userData.classArr[userData.classIdx]
     }
-    console.log('belongAcaId: ', belongAcaId)
-    console.log('belongMajorId: ', belongMajorId)
-    userQuery.get(userId, {
+    userQuery.get(currentUser.id, {
       success: function (result) {
         let Major = Bmob.Object.createWithoutData("majorList", belongMajorId);
         let Academy = Bmob.Object.createWithoutData("academyList", belongAcaId);
         console.log('success', result.id)
         result.set('stuPhone', userData.stuPhone)
+        result.set('stuShortPhone', userData.stuShortPhone)
         result.set('stuName', userData.stuName)
         result.set('stuNum', userData.stuNum)
         result.set('username', userData.stuNum)
@@ -261,12 +260,14 @@ function saveUserInfo(userData) {
         result.set('belongMajor', Major)
         result.set('belongMajorName', belongMajorName)
         result.set('belongClass', belongClass)
+        result.set('hasSetInfo', true)
         result.save()
-        app.globalData.userInfo.belongAcademy = belongAcaId
-        app.globalData.userInfo.belongAcademyName = belongAcaName
-        app.globalData.userInfo.belongMajor = belongMajorId
-        app.globalData.userInfo.belongMajorName = belongMajorName
-        app.globalData.userInfo.belongClass = belongClass
+        app.userInfo.belongAcademyId = belongAcaId
+        app.userInfo.belongAcademyName = belongAcaName
+        app.userInfo.belongMajor = belongMajorId
+        app.userInfo.belongMajorName = belongMajorName
+        app.userInfo.belongClass = belongClass
+        app.userInfo.hasSetInfo = true
         reslove(userData)
       },
       error: function(result, error) {

@@ -1,0 +1,64 @@
+.weui-msg__footer-area {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #999;
+}
+
+.list-con{
+  border-top: 1px solid #D9D9D9;
+  border-bottom: 1px solid #D9D9D9;
+  background-color: #ffffff;
+}
+
+.list-con .list-item{
+  margin: 20rpx 30rpx;
+}
+
+
+.list-con .list-item:not(:last-child){
+  border-bottom: 1px solid #D9D9D9;
+  padding-bottom: 20rpx;
+}
+
+.list-con .item__title__con {
+   font-size: 20px; 
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+}
+.list-con .item__title__con .item__title {
+  flex: 4;
+}
+
+.list-con .item__title__con .item__title__after__icon {
+  flex: 1;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.list-con .item__content {
+  font-size: 16px;
+}
+
+.list-con .item__content .item__row {
+  display: flex;
+  display: -webkit-flex;
+  padding: 5rpx 0;
+  align-items: center;
+}
+
+
+.list-con .item__content .item__row .item__icon {
+  flex: 1;
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.list-con .item__content .item__row .item__desc {
+  flex: 4;
+}

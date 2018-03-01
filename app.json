@@ -5,14 +5,14 @@
     "pages/bookList/bookList",
     "pages/bookBillPreview/bookBillPreview",
     "pages/editBookList/editBookList",
-    "pages/user/pages/changePwd/changePwd",
     "pages/login/login",
     "pages/user/user",
+    "pages/user/pages/changePwd/changePwd",
+    "pages/user/pages/checkUserInfo/checkUserInfo",
     "pages/showAllBookBills/showAllBookBills",    
     "pages/map/map",
     "pages/contacts/contacts",
-    "pages/messagePage/messagePage",
-    "pages/logs/logs"
+    "pages/aboutUs/aboutUs"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,7 +1,0 @@
-<!--pages/welcome/welcome.wxml-->
-<view class="section">
-  <view class="section__title">welcome use !!</view>
-</view>
-
-<button type="default" size="{{defaultSize}}" loading="{{loading}}" plain="{{plain}}"
-        disabled="{{disabled}}" bindtap="login" hover-class="other-button-hover"> login </button>

@@ -1,0 +1,54 @@
+<view class="page" style='position: relative;min-height: 100%;'>
+    <view class="page__hd">
+        <view class="page__title">通讯录</view>
+        <view class="page__desc" wx:if="{{hasSetInfo}}">{{belongAcaName}} {{belongMajName}}{{belongClass}}班</view>
+        <view class="page__desc" wx:else="{{hasSetInfo}}">未完善基本信息</view>
+    </view>
+    <view class="page__bd" style='padding-bottom: 80px'>
+      <view class="list-con" id='listCon' wx:if="{{hasSetInfo}}">
+        <view class='list-item' wx:if="{{listStatus == 1}}" wx:for="{{contactListData}}" wx:key="{{index}}">
+          <view class="item__title__con">
+            <view class='item__title'>{{item.stuName}}</view>
+            <image class='item__title__after__icon' src='/images/add-user-regular.svg' bindtap='addContact' data-itemIndex="{{index}}"></image>   
+          </view>
+          <view class="item__content">
+            <view class='item__row' bindtap='makeCall' data-stuNum='{{item.stuPhone}}'>
+              <view class='item__desc'>长号：{{item.stuPhone}}</view>
+              <image class='item__icon' src='/images/phone.svg'></image>
+            </view>
+            <view class='item__row' bindtap='makeCall' data-stuNum='{{item.stuShortPhone}}'>
+              <view class='item__desc'>短号：{{item.stuShortPhone}}</view>
+              <image class='item__icon' src='/images/phone.svg'></image> 
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{listStatus == 0}}" style='min-height: 150px'>
+          <view class="weui-loadmore weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+          </view>
+        </view>
+        <view class="weui-loadmore" wx:if="{{listStatus == -1}}" >
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+      </view>
+          
+
+      <view wx:else>
+        <image src='/images/document.svg'></image>
+        <view class='weui-msg__opr-area'>
+          <view class='weui-btn-area'>
+            <navigator url="/pages/login/login">
+              <button class='weui-btn' type='primary'>点击完善信息</button>
+            </navigator>
+          </view>
+        </view>
+      </view>
+      
+    </view>
+    <view class="weui-msg__footer-area">
+        <view class="weui-footer">
+          <view class="weui-footer__text">Copyright © 2018 华广校园助手</view>
+        </view>
+    </view>
+</view>

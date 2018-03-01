@@ -30,6 +30,15 @@ Page({
    */
   onLoad: function (options) {
     let that = this
+
+    wx.showLoading({
+      title: '加载中...',
+      mask: true,
+      success: function () {
+
+      }
+    })
+
     wx.login({
       success: (res) => {
         console.log(res)
@@ -37,15 +46,27 @@ Page({
           var openid = user.get("authData").weapp.openid;
           console.log(user, 'user', user.id, res);
 
-          that.setData({
-            src: user.get('avatarUrl'),
-            setClassTxt: user.get('nickName')
-          })
-
           if (user.get("nickName")) {
 
             // 第二次登录，打印用户之前保存的昵称
             console.log(user.get("nickName"), 'res.get("nickName")');
+
+            that.setData({
+              src: user.get('avatarUrl'),
+              setClassTxt: user.get('nickName')
+            })
+
+            if (user.get('hasSetInfo')) {
+              app.userInfo.belongMajName = user.get('belongMajorName')
+              app.userInfo.belongMajorId = user.get('belongMajor').id
+              app.userInfo.belongAcaName = user.get('belongAcaName')
+              app.userInfo.belongAcademyId = user.get('belongAcademy').id
+              app.userInfo.belongClass = user.get('belongClass')
+              app.userInfo.avatarUrl = user.get('avatarUrl')
+              app.userInfo.nickName = user.get('nickName')
+            }
+            app.userInfo.hasSetInfo = user.get('hasSetInfo')
+            wx.hideLoading()
 
             //更新openid
             wx.setStorageSync('openid', openid)
@@ -61,7 +82,6 @@ Page({
                 console.log("查询失败");
               }
             });
-
 
             //保存用户其他信息，比如昵称头像之类的
             wx.getUserInfo({
@@ -81,15 +101,26 @@ Page({
                     result.set('nickName', nickName);
                     result.set("avatarUrl", avatarUrl);
                     result.set("password", '123456');
+                    result.set("hasSetInfo", false);
+                    result.set("allowShowPhone", true);
                     result.set("openid", openid);
                     result.save();
 
                   }
                 });
+
+                that.setData({
+                  src: avatarUrl,
+                  setClassTxt: nickName
+                })
+
+                app.userInfo.hasSetInfo = false
+                app.userInfo.avatarUrl = avatarUrl
+                app.userInfo.nickName = nickName
+                wx.hideLoading()
+                
               }
             });
-
-
           }
 
         }, function (err) {

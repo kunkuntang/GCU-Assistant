@@ -2,12 +2,22 @@
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
-        <view class="weui-label">手机号：</view>
+        <view class="weui-label">手机长号：</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput="bindKeyInput" type="number" placeholder="请输手机号" focus="true" confirm-type="done" maxlength="11" data-field="stuPhone" />
+        <input class="weui-input" bindinput="bindKeyInput" type="number" placeholder="请输手机长号" focus="true" confirm-type="done" maxlength="11" data-field="stuPhone" />
       </view>
     </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机短号：</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput="bindKeyInput" type="number" placeholder="请输手机短号" focus="true" confirm-type="done" maxlength="11" data-field="stuShortPhone" />
+      </view>
+    </view>
+    
   </view>
 
   <view class="operate-panel">

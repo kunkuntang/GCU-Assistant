@@ -8,16 +8,16 @@ App({
     app = this
     // login()
   },
+  userInfo: {},
   globalData: {
-    userInfo: {},
-    mesInfo: {
-      Title: '操作成功',
-      hasAssBtn: false,
-      content: '',
-      assBtnTxt: '',
-      mainBtnTxt: ''
-    },
-    booksArr: [],
+    // mesInfo: {
+    //   Title: '操作成功',
+    //   hasAssBtn: false,
+    //   content: '',
+    //   assBtnTxt: '',
+    //   mainBtnTxt: ''
+    // },
+    // booksArr: [],
   },
   Bmob: Bmob,
   baseDevUrl: "http://localhost:8010/",
