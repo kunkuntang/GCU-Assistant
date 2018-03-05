@@ -8,8 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    setClassTxt: '点击设置班级',
-    src: '/images/card.png',
+    setClassTxt: '小助手',
+    src: '/images/userxhdpi.png',
     grids: [{
       name: '购书助手',
       imgUrl: '../../images/caculator1.svg',
@@ -101,6 +101,7 @@ Page({
                     result.set('nickName', nickName);
                     result.set("avatarUrl", avatarUrl);
                     result.set("password", '123456');
+                    result.set("role", '1');
                     result.set("hasSetInfo", false);
                     result.set("allowShowPhone", true);
                     result.set("openid", openid);

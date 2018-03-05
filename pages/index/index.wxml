@@ -1,14 +1,13 @@
 <view class='page'>
 
   <view>
-    <view class='avatar-con'>
+    <view class='avatar-con' style=''>
       <image style='width: 200rpx; height: 200rpx;' mode='aspectFit' src='{{src}}'></image>
     </view>
-    <navigator url='/pages/login/login' open-type='navigate' style='text-align: center'> {{setClassTxt}}</navigator> 
-     <!-- <text>14级软件4班</text>  -->
+    <view style='text-align: center'>{{setClassTxt}}</view> 
   </view>
 
-  <view class="page__bd page__bd_spacing">
+  <view class="page__bd page__bd_spacing" style='margin-top: 20px;'>
     <view>
       <block wx:for="{{grids}}" wx:key="*this">
         <navigator url="{{item.url}}" class="menu-item-con" hover-class="menu-item-con_active">

@@ -1,1 +1,34 @@
 /* pages/aboutUs/aboutUs.wxss */
+
+.avatarCon{
+  padding: 100rpx 0 20rpx;
+  text-align: center;
+}
+
+.avatarImg{
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+}
+
+.contentTxt{
+  padding: 0 15px;
+}
+
+.title{
+  font-size: 16px;
+  margin: 5px 15px;
+}
+
+.content{
+  text-indent: 2em;
+  font-size: 14px;
+}
+
+.feedBack {
+  width: 100%;
+  border: 1px solid #c3c3c3;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 5px 10px;
+}

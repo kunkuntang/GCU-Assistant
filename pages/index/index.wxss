@@ -1,5 +1,9 @@
 .avatar-con{
   text-align: center;
+  margin: 0 auto 10px;
+  width: 200rpx;
+  height: 200rpx;
+  background-color: #fff
 }
 
 .content {

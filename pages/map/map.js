@@ -1,3 +1,5 @@
+// const QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js')
+// var qqmapsdk;
 const app = getApp()
 const Bmob = app.Bmob
 
@@ -31,7 +33,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    // 实例化腾讯地图API核心类
+    // qqmapsdk = new QQMapWX({
+    //   key: '27MBZ-XSH3X-K2X4N-7UW2F-BVFQE-OOFKA'
+    // });
   },
 
   /**
@@ -76,6 +81,7 @@ Page({
     let mapLocationQuery = new Bmob.Query(MapLocationList)
 
     mapLocationQuery.include('belongCate')
+    mapLocationQuery.ascending("locationName");
     mapLocationQuery.find({
       success: function(results) {
         let cateArr = []
@@ -134,6 +140,7 @@ Page({
         })
       }
     })
+
   },
 
   selectLocation: function(e) {

@@ -23,13 +23,13 @@
 
     <view wx:else>
       <image src='/images/buyBookList.svg'></image>
-        <view class='weui-msg__opr-area'>
-          <view class='weui-btn-area'>
-            <navigator url="/pages/bookLists/bookLists">
-              <button class='weui-btn' type='primary'>点击添加</button>
-            </navigator>
-          </view>
+      <view class='weui-msg__opr-area'>
+        <view class='weui-btn-area'>
+          <navigator url="/pages/bookLists/bookLists">
+            <button class='weui-btn' type='primary'>点击添加</button>
+          </navigator>
         </view>
+      </view>
     </view>
 
   </view>

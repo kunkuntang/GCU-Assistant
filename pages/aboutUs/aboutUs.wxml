@@ -1,2 +1,58 @@
 <!--pages/aboutUs/aboutUs.wxml-->
-<text>pages/aboutUs/aboutUs.wxml</text>
+<view class="page" wx:if="{{showSucPage}}">
+  <view class="page__hd">
+    <view class="page__title">谢谢反馈</view>
+    <view class='page__desc'>我会尽快地处理你的反馈</view>
+  </view>
+  <view class="page__bd">
+    <image src='/images/buyBookList.svg'></image>
+    <view class='weui-msg__opr-area'>
+      <view class='weui-btn-area'>
+        <navigator open-type='navigateBack'>
+          <button class='weui-btn' type='default'>返回</button>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:else>
+  <view class='avatarCon'>
+    <image mode='aspectFit' class='avatarImg' src='https://avatars2.githubusercontent.com/u/13299413?s=460&v=4'></image>
+    <text style='font-size: 18px; margin-top: 5px; display: block'>Tommi</text>
+  </view>
+
+  <view class='contentTxt'>
+    <view class='title'>
+      <text>关于本程序</text>
+    </view>
+    <view class='content'>
+      <text>大家好，我叫Tommi，其实这是我的一个毕业设计作品，一开始构思这个软件的时候就思考怎么才能让它在实现出来后到底变得有价值，于是在很早的时候我就思考在学校里遇到的尴尬和麻烦事，然后再结合所学到的知识思考能否可以通过软件来解决，最终我实现了这个能解决几个简单问题的小程序，希望大家喜欢本程序</text>
+      <text>这个程序日后还会根据反馈作更多的功能更新，希望大家可以多多反馈</text>
+    </view>
+    <view style='margin: 15px 40px 40px;'>
+      <text style='font-size: 18px; color: #f05e3d;'>感谢大家！！！</text>
+    </view>
+  </view>
+
+  <form bindsubmit="formSubmit">
+    <view class='contentTxt'>
+      <view class='title'>
+        <text>反馈</text>
+      </view>
+      <view>
+        <textarea class='feedBack' name="textarea" placeholder="请输入你想提交的建议"></textarea>
+      </view>
+    </view>
+    <view class='weui-msg__opr-area'>
+      <view class='weui-btn-area'>
+        <button class='weui-btn' type='primary' formType="submit">提交</button>
+      </view>
+      <view class='weui-btn-area'>
+        <navigator open-type='navigateBack'>
+          <button class='weui-btn' type='default'>返回</button>
+        </navigator>
+      </view>
+    </view>
+  </form>
+</view>
