@@ -49,8 +49,6 @@ Page({
     let booksArr = this.data.booksArr
     for (let i = 0; i < booksArr.length; i++) {
       let curBook = booksArr[i].attributes
-      // console.log("curBook", curBook)
-      // console.log("booksArr[i]", booksArr[i])
 
       if (curBook.checked) {
         tempData.push({
@@ -65,16 +63,10 @@ Page({
 
     billQuery.get(this.data.bookBillId, {
       success: function (result) {
-        // console.log(result)
         result.set("sumPrice", that.data.sumPrice)
         result.set("containBooks", JSON.stringify(tempData))
         result.save({
           success: function(res) {
-            // console.log(res)
-            // let Books = new Bmob.Object.extend("books")
-            // let book = new Books()
-            // let bookQiery = new Bmob.Query(Books)
-            debugger
             let selectedBooksArr = that.data.selectedBooksArr
             let books = that.data.booksArr
             console.log('selectedBooksArr', selectedBooksArr)

@@ -1,19 +1,33 @@
 <!--pages/bookLists/bookLists.wxml-->
-<view class="page">
+<view class="page" style='position: relative;min-height: 100%;'>
     <view class="page__hd">
         <view class="page__title">输入书单号</view>
-        <view class="page__desc">书单号请联系班级负责人拿取</view>
+        <view class="page__desc" wx:if="{{hasSetInfo}}">书单号请联系班级负责人拿取</view>
+        <view class="page__desc" wx:else>未完善基本信息</view>
     </view>
     <view class="page__bd">
-      <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__bd">
-                  <input class="weui-input" placeholder="请输入文本" bindinput="bindBookListId" />
-              </view>
-          </view>
+      <view wx:if="{{hasSetInfo}}">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入文本" bindinput="bindBookListId" />
+                </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="getBookList">确定</button>
+        </view>
       </view>
-      <view class="weui-btn-area">
-          <button class="weui-btn" type="primary" bindtap="getBookList">确定</button>
+
+      <view wx:else>
+        <image src='/images/document.svg'></image>
+        <view class='weui-msg__opr-area'>
+          <view class='weui-btn-area'>
+            <navigator url="/pages/login/login">
+              <button class='weui-btn' type='primary'>点击完善信息</button>
+            </navigator>
+          </view>
+        </view>
       </view>
     </view>
 </view>

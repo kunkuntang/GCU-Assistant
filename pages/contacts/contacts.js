@@ -18,34 +18,32 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    console.log(app.userInfo.hasSetInfo)
+  onShow: function() {
     this.setData({
       hasSetInfo: app.userInfo.hasSetInfo,
     })
-    
+
     if (!app.userInfo.hasSetInfo) {
       wx.showModal({
         title: '请完善信息',
         content: '完善信息后可以查看本班的通讯录',
         confirmText: "去完善",
         cancelText: "暂不",
-        success: function (res) {
-          console.log(res);
+        success: function(res) {
           if (res.confirm) {
             wx.navigateTo({
               url: '/pages/login/login',
@@ -55,13 +53,12 @@ Page({
           }
         }
       });
-      
+
     } else {
       let that = this
       let userQuery = new Bmob.Query(Bmob.User);
       let belongMajorId = app.userInfo.belongMajorId
       let belongClassId = app.userInfo.belongClass
-      console.log('belongMajorId: ', belongMajorId)
       let majorList = Bmob.Object.createWithoutData('majorList', belongMajorId);
       userQuery.equalTo('belongMajor', majorList)
       userQuery.equalTo('belongClass', belongClassId)
@@ -71,7 +68,6 @@ Page({
       userQuery.select('allowShowPhone')
       userQuery.find({
         success: function(results) {
-          console.log(results)
           let tempDataArr = []
           results.forEach(el => {
             if (el.get('allowShowPhone')) {
@@ -82,13 +78,12 @@ Page({
               })
             }
           })
-          console.log('tempDataArr', tempDataArr)
           that.setData({
             belongAcaName: app.userInfo.belongAcaName,
             belongMajorName: app.userInfo.belongMajorName,
             belongClass: app.userInfo.belongClass,
             contactListData: tempDataArr,
-            listStatus: tempDataArr.length ? 1 : 0 
+            listStatus: tempDataArr.length ? 1 : 0
           })
 
         }
@@ -116,35 +111,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   }
 })

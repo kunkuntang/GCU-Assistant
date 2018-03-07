@@ -174,7 +174,6 @@
       key: 'key',
       success: function(res) {
         Bmob._installationId = res.data;
-        console.log(res.data)
       }
     })
 
@@ -235,7 +234,6 @@
         },
         formData: dataObject,
         success: function(res) {
-          console.log(res);
           var data = JSON.parse(res.data);
           promise.resolve(data, res.statusCode, res);
           wx.hideNavigationBarLoading()

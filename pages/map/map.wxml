@@ -11,11 +11,13 @@
           <view class="weui-media-box weui-media-box_small-appmsg">
             <view class="weui-cells weui-cells_in-small-appmsg">
               <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{item.cateList}}" wx:for-item="location" wx:for-index="locationIndex" wx:key="{{index}}" bindtap='selectLocation' data-cateIndex='{{index}}' data-locationIndex='{{locationIndex}}'>
-                <view class="weui-cell__hd"><image src="{{location.icon}}" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                <view class="weui-cell__hd">
+                  <image src="{{location.icon}}" style="width: 20px;height: 20px;margin-right: 5px" />
+                </view>
                 <view class="weui-cell__bd weui-cell_primary">
                     <view style='font-size: 14px'>{{location.locationName}}</view>
                 </view>
-                <image src='/images/location.svg' class="weui-cell__ft weui-cell__ft_location" wx:if="{{location.selected}}" catchtap='goLocation'></image>
+                <image src='/images/location.svg' class="weui-cell__ft weui-cell__ft_location" wx:if="{{location.selected}}" catchtap='goLocation'></image> 
               </view>
             </view>
           </view>

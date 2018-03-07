@@ -3,7 +3,7 @@
   <view class="page__hd">
     <view class="page__title">购书单列表</view>
     <view class="page__desc" wx:if="{{bookBillsArr.length}}">长按删除购书单</view>
-    <view class='page__desc' wx:esle>未查询到你的购买记录</view>
+    <view class='page__desc' wx:else>未查询到你的购买记录</view>
   </view>
   <view class="page__bd">
 

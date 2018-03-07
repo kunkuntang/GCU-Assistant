@@ -36,12 +36,12 @@
     <view class='page__bd'>
       <view class="userinfo">
         <view class="assign-con">
-          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+          <image class="userinfo-avatar" src="/images/gcuHelper.svg" background-size="cover"></image>
           <text class="double-arrow">⇆</text>
-          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+          <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
         </view>
         <text class="weclome">欢迎使用</text>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <text class="userinfo-nickname">{{nickName}}</text>
       </view>
       <template is="{{pageArr[step]}}" data="{{...pickerData}}"/>
 

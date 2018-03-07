@@ -20,7 +20,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let that = this
 
     let currentUser = Bmob.User.current();
@@ -34,10 +34,8 @@ Page({
     bookBillsQuery.include("belongBookList", "belongMajor", "belongAcademy")
     bookBillsQuery.find({
       success: function(results) {
-        console.log(results)
-        console.log("共查询到 " + results.length + " 条记录");
         let tempData = []
-        // 循环处理查询到的数据
+          // 循环处理查询到的数据
         for (var i = 0; i < results.length; i++) {
           var bookBill = results[i];
           tempData.push({
@@ -52,28 +50,26 @@ Page({
           bookBillsArr: tempData
         })
       },
-      error: function (error) {
+      error: function(error) {
         console.log("查询失败: " + error.code + " " + error.message);
       }
     })
   },
 
   /// 按钮触摸开始触发的事件
-  touchStart: function (e) {
+  touchStart: function(e) {
     this.touchStartTime = e.timeStamp
   },
 
   /// 按钮触摸结束触发的事件
-  touchEnd: function (e) {
+  touchEnd: function(e) {
     this.touchEndTime = e.timeStamp
   },
 
-  navigateToBill: function (e) {
+  navigateToBill: function(e) {
     // 控制点击事件在350ms内触发，加这层判断是为了防止长按时会触发点击事件
     if (this.touchEndTime - this.touchStartTime < 350) {
       let bookBillId = e.currentTarget.dataset.billid
-      console.log(e)
-      console.log(bookBillId)
       wx.navigateTo({
         url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + bookBillId,
       })
@@ -92,13 +88,10 @@ Page({
       content: '删除后请及时通知负责人且已删除的书单不能恢复！',
       confirmText: "删除",
       cancelText: "取消",
-      success: function (res) {
-        console.log(res);
+      success: function(res) {
         if (res.confirm) {
-          console.log('bookBillId', bookBillId)
           billsQuery.get(bookBillId, {
-            success: function (bookBill) {
-              console.log('bookBill', bookBill)
+            success: function(bookBill) {
               let containBooks = JSON.parse(bookBill.get('containBooks'))
               let containBooksId = []
               containBooks.forEach((book) => {
@@ -106,7 +99,7 @@ Page({
               })
 
               booksQuery.find({
-                success: function (results) {
+                success: function(results) {
                   results.forEach((book) => {
                     if (containBooksId.includes(book.id)) {
                       book.increment('buyCount', -1)
@@ -114,7 +107,7 @@ Page({
                   })
                   Bmob.Object.saveAll(results)
                   bookBill.destroy({
-                    success: function (bill) {
+                    success: function(bill) {
                       wx.showToast({
                         title: '删除成功',
                         icon: 'success',
@@ -134,55 +127,55 @@ Page({
         }
       }
     });
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })

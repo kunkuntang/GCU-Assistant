@@ -13,7 +13,7 @@ Page({
     majorIdx: 0,
     majorList: [],
     classIdx: 0,
-    classList: [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+    classList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
     stuName: '',
     stuNum: '',
     stuPhone: '',
@@ -24,21 +24,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     wx.showLoading({
       title: '加载中...',
     })
@@ -46,7 +46,7 @@ Page({
     let currentUser = Bmob.User.current();
     let userQuery = new Bmob.Query(Bmob.User);
     userQuery.get(currentUser.id, {
-      success: function (result) {
+      success: function(result) {
         that.setData({
           stuName: result.get('stuName'),
           stuNum: result.get('stuNum'),
@@ -87,17 +87,16 @@ Page({
           }
         })
         that.setData({
-          majorList: results,
-          majorIdx: selectedIdx
-        })
-        // setTimeout(wx.hideLoading, 500)
+            majorList: results,
+            majorIdx: selectedIdx
+          })
+          // setTimeout(wx.hideLoading, 500)
         wx.hideLoading()
       }
     })
   },
 
   bindKeyInput: function(e) {
-    console.log(e)
     let tempObject = this.data
     tempObject[e.target.dataset.field] = e.detail.value
     this.setData(tempObject)
@@ -107,14 +106,12 @@ Page({
     let that = this
     let idx = e.detail.value
     let selectedAcaId = this.data.academyList[idx].id
-    console.log(selectedAcaId)
     let academyObject = Bmob.Object.createWithoutData('academyList', selectedAcaId)
     let MajorList = Bmob.Object.extend('majorList')
     let majorListQuery = new Bmob.Query(MajorList)
     majorListQuery.equalTo('belongAcademy', academyObject)
     majorListQuery.find({
       success: function(results) {
-        console.log(results)
         that.setData({
           academyIdx: idx,
           majorList: results
@@ -127,7 +124,7 @@ Page({
     let idx = e.detail.value
     this.setData({
       majorIdx: idx
-    })   
+    })
   },
 
   bindClassChange: function(e) {
@@ -154,12 +151,10 @@ Page({
     let belongMajorName = wxData.majorList[wxData.majorIdx].get('majorName')
     let belongClass = wxData.classList[wxData.classIdx]
 
-    console.log('belongAcaName: ', belongAcaName)
     userQuery.get(currentUser.id, {
-      success: function (result) {
+      success: function(result) {
         let Major = Bmob.Object.createWithoutData("majorList", belongMajorId);
         let Academy = Bmob.Object.createWithoutData("academyList", belongAcaId);
-        console.log('success', result.id)
         result.set('stuPhone', wxData.stuPhone)
         result.set('stuShortPhone', wxData.stuShortPhone)
         result.set('stuName', wxData.stuName)
@@ -178,7 +173,7 @@ Page({
         app.userInfo.belongClass = belongClass
         wx.navigateBack()
       },
-      error: function (result, error) {
+      error: function(result, error) {
         console.log('result', result)
         console.log('fail', error)
       }
@@ -188,35 +183,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })

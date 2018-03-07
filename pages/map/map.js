@@ -27,12 +27,12 @@ Page({
     locationList: [],
     selectedLocation: {}
   },
-  
+
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // 实例化腾讯地图API核心类
     // qqmapsdk = new QQMapWX({
     //   key: '27MBZ-XSH3X-K2X4N-7UW2F-BVFQE-OOFKA'
@@ -42,22 +42,22 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     this.mapCtx = wx.createMapContext('myMap')
   },
 
-  getCenterLocation: function () {
+  getCenterLocation: function() {
     this.mapCtx.getCenterLocation({
-      success: function (res) {
+      success: function(res) {
         console.log(res.longitude)
         console.log(res.latitude)
       }
     })
   },
-  moveToLocation: function () {
+  moveToLocation: function() {
     this.mapCtx.moveToLocation()
   },
-  translateMarker: function () {
+  translateMarker: function() {
     this.mapCtx.translateMarker({
       markerId: 0,
       autoRotate: true,
@@ -75,7 +75,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     let that = this
     let MapLocationList = Bmob.Object.extend('mapLocationList')
     let mapLocationQuery = new Bmob.Query(MapLocationList)
@@ -87,6 +87,7 @@ Page({
         let cateArr = []
         let cateObj = {}
         let tempLocaList = []
+        console.log(results)
         results.forEach(location => {
           let belongCate = location.get('belongCate').locationCateName
           let locaData = {
@@ -104,9 +105,9 @@ Page({
           }
         })
 
-        Object.keys(cateObj).forEach( cateName => {
+        Object.keys(cateObj).forEach(cateName => {
           cateArr.push({
-            cateName: '教学楼',
+            cateName: cateName,
             cateList: cateObj[cateName]
           })
         })
@@ -119,7 +120,7 @@ Page({
 
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-      success: function (res) {
+      success: function(res) {
         var latitude = res.latitude
         var longitude = res.longitude
         let tempPolyline = that.data.polyline
@@ -144,15 +145,12 @@ Page({
   },
 
   selectLocation: function(e) {
-    console.log(e)
     let selectedLocation = []
     let cateIndex = e.currentTarget.dataset.cateindex
     let locationIndex = e.currentTarget.dataset.locationindex
-    console.log('index', cateIndex)
-    console.log('locationIndex', locationIndex)
     let locationList = this.data.locationList
     let cateList = locationList[cateIndex].cateList
-    
+
     // 把所有的地点重置为未选中
     locationList.forEach((el, index) => {
       let locationCate = el.cateList
@@ -193,20 +191,18 @@ Page({
     let selectedLocation = this.data.selectedLocation
     let curLatitude = this.data.mapLatitude
     let curLongitude = this.data.mapLongitude
-    console.log("latitude", selectedLocation.latitude)
-    console.log("longitude", selectedLocation.longitude)
 
     this.mapCtx.includePoints({
       padding: [50],
-      points: [
-        {
+      points: [{
           latitude: curLatitude,
           longitude: curLongitude
         },
         {
           latitude: selectedLocation.latitude,
           longitude: selectedLocation.longitude,
-        }]
+        }
+      ]
     })
 
     let tempPolyline = this.data.polyline
@@ -231,35 +227,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   }
 })
