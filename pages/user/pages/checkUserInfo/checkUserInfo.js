@@ -1,6 +1,6 @@
 // pages/user/pages/checkUserInfo/checkUserInfo.js
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 
 Page({
 

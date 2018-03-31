@@ -1,0 +1,13 @@
+/* pages/activityList/page/showActDetail/showActDetail.wxss */
+.page__hd{
+  padding: 40rpx;
+}
+
+.activity-con{
+  background-color: #fff;
+  padding: 20rpx 40rpx;
+}
+
+.activity-detail{
+  min-height: 200rpx;
+}

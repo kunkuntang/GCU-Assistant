@@ -1,0 +1,12 @@
+<!--pages/user/pages/shareMiniPro/shareMiniPro.wxml-->
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">小程序二维码</view>
+    <view class="page__desc">感谢各位积极分享转发</view>
+  </view>
+  <view class="page__bd">
+    <view>
+      <image class='QECode' src='{{QECodeSrc}}'></image>
+    </view>
+  </view>
+</view>

@@ -1,6 +1,6 @@
 // pages/bookLists/bookLists.js
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 
 Page({
 

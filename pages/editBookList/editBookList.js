@@ -1,5 +1,5 @@
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 
 Page({
 
@@ -16,10 +16,11 @@ Page({
     booksArr: [],
     bookBillId: ''
   },
-  checkboxChange: function (e) {
+  checkboxChange: function(e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
     let sumPrice = 0
-    var booksArr = this.data.booksArr, values = e.detail.value;
+    var booksArr = this.data.booksArr,
+      values = e.detail.value;
     for (var i = 0, lenI = booksArr.length; i < lenI; ++i) {
       booksArr[i].attributes.checked = false;
 
@@ -38,7 +39,7 @@ Page({
       selectedBooksArr: values
     });
   },
-  submitBill: function () {
+  submitBill: function() {
     let that = this
     let currentUser = Bmob.User.current();
 
@@ -62,7 +63,7 @@ Page({
     }
 
     billQuery.get(this.data.bookBillId, {
-      success: function (result) {
+      success: function(result) {
         result.set("sumPrice", that.data.sumPrice)
         result.set("containBooks", JSON.stringify(tempData))
         result.save({
@@ -74,22 +75,22 @@ Page({
             books.forEach((book) => {
               // selectedBooksArr.forEach((el) => {
               console.log(selectedBooksArr.includes(book.id))
-                if (selectedBooksArr.includes(book.id)) {
-                    if (!book.isBought) {
-                      book.increment("buyCount")
-                    }
-                  } else {
-                  if (book.isBought) {
-                      book.increment("buyCount", -1)
-                    }
-                  }
+              if (selectedBooksArr.includes(book.id)) {
+                if (!book.isBought) {
+                  book.increment("buyCount")
+                }
+              } else {
+                if (book.isBought) {
+                  book.increment("buyCount", -1)
+                }
+              }
               // })
             })
             Bmob.Object.saveAll(books).then((books) => {
               console.log(books)
               wx.navigateTo({
-                      url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + result.id + '&isEdited=true',
-                    })
+                url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + result.id + '&isEdited=true',
+              })
             })
 
             // console.log(that.data.selectedBooksArr)
@@ -118,7 +119,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let that = this
     let bookBillId = options.bookBillId
 
@@ -138,19 +139,20 @@ Page({
           bookListName: belongBookList.bookListName,
         })
 
-        that.getBookListInfo(belongBookList.id, containBooks, bookBillId)
+        that.getBookListInfo(belongBookList.objectId, containBooks, bookBillId)
       }
     })
   },
 
-  getBookListInfo: function (bookListId, containBooks, bookBillId){
+  getBookListInfo: function(bookListId, containBooks, bookBillId) {
+    console.log(bookListId)
     let that = this
     let Books = Bmob.Object.extend('books')
     let books = new Bmob.Query(Books)
     let sumPrice = 0
     books.equalTo('belongBookList', bookListId)
     books.find({
-      success: function (results) {
+      success: function(results) {
         console.log('books', results)
         let tempDta = []
         let boughtBookIdArr = []
@@ -159,13 +161,13 @@ Page({
           boughtBookIdArr.push(el.bookId)
           sumPrice += Number(el.bookFinalPri)
         })
-            
+
         results.forEach((book) => {
           let isBought = boughtBookIdArr.includes(book.id)
-            console.log('isBought', isBought)
-            book.attributes.bookFinalPri = Number(book.get('bookPrice')) * Number(book.get('bookDisc')) * 0.1
-            book.attributes.checked = isBought
-            book.isBought = isBought
+          console.log('isBought', isBought)
+          book.attributes.bookFinalPri = Number(book.get('bookPrice')) * Number(book.get('bookDisc')) * 0.1
+          book.attributes.checked = isBought
+          book.isBought = isBought
         })
         that.setData({
           booksArr: results,
@@ -179,49 +181,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 

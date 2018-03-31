@@ -1,6 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/reservationList/reservationList",
+    "pages/reservationList/page/addResList/addResList",
+    "pages/activityList/activityList",
+    "pages/activityList/page/addActivityList/addActivityList",
+    "pages/activityList/page/showActDetail/showActDetail",
+    "pages/map/map",
     "pages/bookLists/bookLists",
     "pages/bookList/bookList",
     "pages/bookBillPreview/bookBillPreview",
@@ -9,8 +15,8 @@
     "pages/user/user",
     "pages/user/pages/changePwd/changePwd",
     "pages/user/pages/checkUserInfo/checkUserInfo",
-    "pages/showAllBookBills/showAllBookBills",    
-    "pages/map/map",
+    "pages/user/pages/shareMiniPro/shareMiniPro",
+    "pages/showAllBookBills/showAllBookBills",
     "pages/contacts/contacts",
     "pages/aboutUs/aboutUs"
   ],

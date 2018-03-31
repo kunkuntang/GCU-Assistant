@@ -1,6 +1,6 @@
 // pages/showAllBookBills/showAllBookBills.js
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 
 Page({
 

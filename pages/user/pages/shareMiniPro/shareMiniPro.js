@@ -1,4 +1,4 @@
-// pages/bookBillPreview/bookBillPreview.js
+// pages/user/pages/shareMiniPro/shareMiniPro.js
 const app = getApp()
 const Bmob = app.bookBmob
 
@@ -8,36 +8,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bookBillId: '',
-    sumPrice: '',
-    booksArr: [],
-    isEdited: false
+    QECodeSrc: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(option) {
+  onLoad: function(options) {
     let that = this
-    let bookBillId = option.bookBillId
-    let BookBills = Bmob.Object.extend('bookBills')
-    let bookBillsQuery = new Bmob.Query(BookBills)
-    bookBillsQuery.get(bookBillId, {
-      success: function(result) {
-        let booksArr = result.get('containBooks')
-        that.setData({
-          sumPrice: result.get('sumPrice'),
-          booksArr: JSON.parse(booksArr),
-          isEdited: option.isEdited
-        })
-      },
-      error: function(result, error) {
-        console.log(error)
-      }
-    })
-    this.setData({
-      bookBillId: bookBillId
-    })
+    let path = 'pages/index/index'
+    let width = 320
+    Bmob.generateCode({ "path": path, "width": width, "type": 1 }).then(function(obj) {
+      console.log(obj);
+      that.setData({
+        QECodeSrc: obj.url //二维码示例, 这里也可以返回二维码URL，请看上面参数
+      })
+
+    }, function(err) {
+
+      //失败
+    });
+
+    // let ACCESS_TOKEN = 
+    // wx.request({
+    //   url: 'https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=' + ACCESS_TOKEN,
+    // })
   },
 
   /**

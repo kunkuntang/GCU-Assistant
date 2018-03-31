@@ -1,7 +1,7 @@
 // const QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js')
 // var qqmapsdk;
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 
 Page({
 
@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    mapLatitude: 0,
-    mapLongitude: 0,
+    curLatitude: 0,
+    curLongitude: 0,
     markers: [],
     polyline: [],
     controls: [{
@@ -95,7 +95,7 @@ Page({
             longitude: location.get('longitude'),
             latitude: location.get('latitude'),
             icon: '',
-            selected: false
+            id: location.id
           }
 
           if (cateObj[belongCate]) {
@@ -108,7 +108,8 @@ Page({
         Object.keys(cateObj).forEach(cateName => {
           cateArr.push({
             cateName: cateName,
-            cateList: cateObj[cateName]
+            cateList: cateObj[cateName],
+            selected: false,
           })
         })
 
@@ -134,9 +135,39 @@ Page({
           dottedLine: true
         })
 
+        // let i = 0
+        // let tempMarkers = []
+        // tempMarkers.push({
+        //   iconPath: "/resources/others.png",
+        //   id: i++,
+        //   latitude: latitude,
+        //   longitude: longitude,
+        //   width: 50,
+        //   height: 50,
+        //   title: 'title',
+        //   alpha: 0.9,
+        //   callout: {
+        //     content: 'this is a callout content',
+        //     borderRadius: 4,
+        //     bgColor: '#fff',
+        //     padding: 3,
+        //     display: 'ALWAYS',
+        //     textAlign: 'left'
+        //   },
+        //   label: {
+        //     content: 'this is a label',
+        //     x: 8,
+        //     y: 8,
+        //     borderWidth: 3,
+        //     borderColor: '#000',
+        //     borderRadius: 2,
+
+        //   }
+        // })
+
         that.setData({
-          mapLongitude: longitude,
-          mapLatitude: latitude,
+          curLongitude: longitude,
+          curLatitude: latitude,
           polyline: tempPolyline
         })
       }
@@ -145,55 +176,117 @@ Page({
   },
 
   selectLocation: function(e) {
+    let that = this
     let selectedLocation = []
     let cateIndex = e.currentTarget.dataset.cateindex
-    let locationIndex = e.currentTarget.dataset.locationindex
     let locationList = this.data.locationList
     let cateList = locationList[cateIndex].cateList
+    let markers = []
+    let curLatitude = this.data.curLatitude
+    let curLongitude = this.data.curLongitude
+    let includeLatitude = 0
+    let includeLongitude = 0
+    let minDistance = 1000
+    let tempPolyline = this.data.polyline
+
+    // console.log(cateIndex)
+    // console.log(locationList)
+    // console.log(cateList)
 
     // 把所有的地点重置为未选中
     locationList.forEach((el, index) => {
-      let locationCate = el.cateList
-      locationCate.forEach(location => {
-        location.selected = false
+      el.selected = false
+    })
+
+    locationList[cateIndex].selected = true
+
+    console.log(locationList[cateIndex].cateList)
+
+
+    selectedLocation = locationList[cateIndex].cateList
+    selectedLocation.forEach(location => {
+      let distance = Math.pow(Math.abs(location.latitude - curLatitude), 2) * Math.pow(Math.abs(location.longitude - curLongitude), 2)
+      console.log(distance)
+      if (minDistance > distance) {
+        minDistance = distance
+        includeLatitude = location.latitude
+        includeLongitude = location.longitude
+      }
+      markers.push({
+        label: {
+          content: location.locationName,
+          bgColor: '#FFFFFF',
+          borderRadius: 4,
+          borderWidth: 1,
+          borderColor: '#2C2C2C',
+          padding: 3
+        },
+        iconPath: "/resources/others.png",
+        id: location.id,
+        width: 10,
+        height: 10,
+        ...location
       })
     })
 
-    cateList.forEach((el, idx) => {
-      if (idx == locationIndex) {
-        el.selected = true
-        selectedLocation = {
-          latitude: el.latitude,
-          longitude: el.longitude
+    wx.request({
+      // url: 'http://apis.map.qq.com/ws/direction/v1/walking/?from=39.915285,116.403857&to=39.915285,116.803857&key=27MBZ-XSH3X-K2X4N-7UW2F-BVFQE-OOFKA',
+      url: 'http://apis.map.qq.com/ws/direction/v1/walking/?from=' + curLatitude + ',' + curLongitude + '&to=' + includeLatitude + ',' + includeLongitude + '&key=27MBZ-XSH3X-K2X4N-7UW2F-BVFQE-OOFKA',
+      success: function({ data }) {
+        console.log(data.result.routes)
+        let polyLine = []
+        let routes = data.result.routes
+        let steps = routes[0].steps
+        var coors = routes[0].polyline;
+        console.log(steps)
+        for (var i = 2; i < coors.length; i++) {
+          coors[i] = coors[i - 2] + coors[i] / 1000000
         }
+
+        for (var j = 0; j < coors.length - 2; j += 2) {
+          polyLine.push({
+            latitude: coors[j],
+            longitude: coors[j + 1]
+          })
+        }
+
+        tempPolyline[0].points = polyLine
+
+        that.setData({
+          markers: markers,
+          locationList: locationList,
+          polyline: tempPolyline
+            // selectedLocation: selectedLocation
+        })
+
+      },
+      error: function(e) {
+        console.log(e)
       }
     })
-    this.setData({
-      markers: [{
-        iconPath: "/resources/others.png",
-        id: 0,
-        width: 50,
-        height: 50,
-        ...selectedLocation
-      }],
-      locationList: locationList,
-      selectedLocation: selectedLocation
-    })
+
+
 
     this.mapCtx.includePoints({
       padding: [50],
-      points: [selectedLocation]
+      points: [{
+        latitude: curLatitude,
+        longitude: curLongitude
+      }, {
+        latitude: includeLatitude,
+        longitude: includeLongitude
+      }]
     })
   },
 
   goLocation: function(e) {
     let mapCtx = this.mapCtx
     let selectedLocation = this.data.selectedLocation
-    let curLatitude = this.data.mapLatitude
-    let curLongitude = this.data.mapLongitude
+    let curLatitude = this.data.curLatitude
+    let curLongitude = this.data.curLongitude
 
     this.mapCtx.includePoints({
-      padding: [50],
+      padding: [5],
       points: [{
           latitude: curLatitude,
           longitude: curLongitude

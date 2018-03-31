@@ -91,6 +91,7 @@ Page({
           _this.setData({
             pwdNotMatch: false
           })
+          wx.navigateBack()
         },
         error: function() {
 

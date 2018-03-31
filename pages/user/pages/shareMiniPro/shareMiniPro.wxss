@@ -1,0 +1,5 @@
+/* pages/user/pages/shareMiniPro/shareMiniPro.wxss */
+.QECode {
+  width: 320px;
+  height: 365px;
+}

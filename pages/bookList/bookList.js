@@ -1,5 +1,5 @@
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 
 Page({
 
@@ -40,7 +40,9 @@ Page({
       selectedBooksArr: values
     });
   },
-  submitBill: function(){
+  submitBill: function(e){
+    let formId = e.detail.formId
+    console.log('formId', formId)
     let that = this
     let currentUser = Bmob.User.current();
     let User = new Bmob.User()
@@ -61,12 +63,14 @@ Page({
     bill.set("belongBookList", bookList)
     bill.set("belongUser", User)
     let tempData = []
+    let billContainTxt = ''
     let booksArr = this.data.booksArr
     for (let i = 0; i < booksArr.length; i++) {
       let curBook = booksArr[i].attributes
       console.log("booksArr[i]", booksArr[i])
       
       if (curBook.checked)  {
+        billContainTxt += billContainTxt ? '、' + curBook.bookName : curBook.bookName
         tempData.push({
           bookId: booksArr[i].id,
           bookDisc: curBook.bookDisc,
@@ -76,39 +80,26 @@ Page({
         })
       }
     }
-    // bill.set("bookListName", this.data.bookListName)
     bill.set("sumPrice", this.data.sumPrice )
     bill.set("containBooks", JSON.stringify(tempData))
-    
-    /**
-     * {
-      belongUser: app.globalData.userBmobId,
-      bookListName: app.globalData.bookListName,
-      bookListId: app.globalData.bookListId,
-      belongAcaName: app.globalData.belongAcaName,
-      belongMajName: app.globalData.belongMajName,
-      sumPrice: sumPrice,
-      containBooks: tempData
-    }
-     */
 
     billQuery.equalTo("belongUser", currentUser.id)
     billQuery.equalTo("belongBookList", this.data.bookListId)
     billQuery.find({
       success: function(res) {
-        console.log(res)
+        // res返回是一个数组
         if (!res.length) {
           bill.save(null, {
             success: function(result) {
               console.log(result)
+              
               let Books = new Bmob.Object.extend("books")
               let book = new Books()
-              console.log(that.data.selectedBooksArr)
               that.data.selectedBooksArr.forEach((el) => {
                 book.id = el
                 book.increment("buyCount")
                 book.save(null, {
-                  success: function(){
+                  success: function(saveRes){
                     wx.redirectTo({
                       url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + result.id + '&isEdited=true',
                     })
@@ -118,6 +109,18 @@ Page({
                   }
                 })
               })
+              console.log('billContainTxt', billContainTxt)
+
+              // 购买成功后发送通知
+              let notifyData = {
+                buyTime: result.updatedAt,
+                billNo: result.id,
+                billName: that.data.bookListName,
+                billContain: billContainTxt ,
+                billCost: that.data.sumPrice,
+                formId: formId
+              }
+              that.sendNotify(result.id, notifyData)
             },
             error: function(result, error){
               console.log(error)
@@ -129,11 +132,10 @@ Page({
             content: '你已购买过此书单！你可以修改之前预订的订单',
             confirmText: "修改",
             cancelText: "取消",
-            success: function (res) {
-              console.log(res);
-              if (res.confirm) {
+            success: function (response) {
+              if (response.confirm) {
                 wx.redirectTo({
-                  url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + res.id,
+                  url: '/pages/bookBillPreview/bookBillPreview?bookBillId=' + res[0].id,
                 })
               } else {
                 console.log('用户点击辅助操作')
@@ -143,6 +145,57 @@ Page({
         }
       }
     })
+  },
+
+  sendNotify: function (bookBillId, notifyData) {
+    console.log(notifyData)
+    try {
+      let openId = wx.getStorageSync('openid')
+      wx.getStorage({
+        key: 'acToken',
+        success: function(res) {
+          console.log('getStorage data', res.data)
+          wx.request({
+            url: 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token='+ res.data,
+            method: 'POST',
+            data: {
+              "touser": openId,
+              "template_id": 'DfrMX0vRgnUVNz5ye4zGIJzeqdYjbkmUBzsFmJ0Fk_U',
+              "page": 'pages/index/index',
+              "data": {
+                "keyword1": {
+                  "value": notifyData.buyTime,
+                  "color": "#173177"
+                },
+                "keyword2": {
+                  "value": notifyData.billNo,
+                  "color": "#173177"
+                },
+                "keyword3": {
+                  "value": notifyData.billName,
+                  "color": "#173177"
+                },
+                "keyword4": {
+                  "value": notifyData.billContain,
+                  "color": "#173177"
+                },
+                "keyword5": {
+                  "value": notifyData.billCost + '',
+                  "color": "#173177"
+                }
+              },
+              "form_id": notifyData.formId,
+              "emphasis_keyword": "keyword3.DATA" 
+            },
+            success: function(code) {
+              console.log(code)
+            }
+          })
+        }
+      })
+    } catch(e) {
+
+    }
   },
   /**
    * 生命周期函数--监听页面加载

@@ -1,0 +1,25 @@
+/* pages/reservation/reservation.wxss */
+
+.reservation-list{
+  padding: 0 8px;
+
+}
+.res-con {
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #c2c2c2;
+  background-color: #ffffff;
+}
+
+.res-row {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.res-row .label {
+  flex: 2;
+}
+
+.res-row .desc {
+  flex: 4
+}

@@ -1,0 +1,152 @@
+<!--pages/reservation/reservation.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">活动发布助手</view>
+    <view class="page__desc"></view>
+  </view>
+  <view class="page__bd">
+    <view wx:if="showSuccPage">
+      <image src='/images/document.svg'></image>
+      <view class='weui-msg__opr-area'>
+        <view class='weui-btn-area'>
+          <navigator open-type='navigateBack'>
+            <button class='weui-btn' type='primary'>预约成功</button>
+          </navigator>
+        </view>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input {{ (!activityName && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">活动名称</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入活动名称" bindinput="bindActName" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !activityName}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{ (!activityLocation && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">活动地点</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入活动地点" bindinput="bindActLocation" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !activityLocation}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{ (!organizer && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">举办方</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入举办方" bindinput="bindOrganizer" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !organizer}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">开始时间</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input {{ (!beginDate && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{beginDate}}" start="2015-09-01" end="2017-09-01" bindchange="bindBeginDateChange">
+              <view class="weui-input">{{beginDate}}</view>
+            </picker>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !beginDate}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{ (!beginTime && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{beginTime}}" start="09:01" end="21:01" bindchange="bindBeginTimeChange">
+              <view class="weui-input">{{beginTime}}</view>
+            </picker>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !beginTime}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">结束时间</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input {{ (!endDate && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{endDate}}" start="2015-09-01" end="2017-09-01" bindchange="bindEndDateChange">
+              <view class="weui-input">{{endDate}}</view>
+            </picker>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !endDate}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{ (!endTime && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{endTime}}" start="09:01" end="21:01" bindchange="bindEndTimeChange">
+              <view class="weui-input">{{endTime}}</view>
+            </picker>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !endTime}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">活动说明</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+              <textarea class="weui-textarea" bindblur="bindActDetail" placeholder="请输入活动具体内容" placeholder-class="{{ (!activityDetail && showErr) ? 'weui-cell_warn' : ''}}" style="height: 3.3em" />
+              <view class="weui-textarea-counter">0/200</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">取消活动需要此密码</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input {{ (!cancelPwd && showErr) ? 'weui-cell_warn' : ''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">取消密码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入密码" bindinput="bindPwd"/>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{ showErr && !cancelPwd}}">
+              <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+      </view>
+
+      <view class='weui-msg__opr-area'>
+        <view class='weui-btn-area'>
+          <button class='weui-btn' type='primary' bindtap='reservate'>确定预约</button>
+        </view>
+        <view class='weui-btn-area'>
+          <navigator open-type='navigateBack'>
+            <button class='weui-btn' type='default'>取消</button>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

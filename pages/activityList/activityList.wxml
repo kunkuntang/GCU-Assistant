@@ -1,0 +1,44 @@
+<!--pages/reservation/reservation.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">预约助手</view>
+    <view class="page__desc"></view>
+  </view>
+  <view class="page__bd">
+    <view class='reservation-list'>
+      <view class='res-con' wx:for="{{activityList}}" wx:key="{{index}}">
+        <navigator url='/pages/activityList/page/showActDetail/showActDetail?actId={{item.objectId}}' >
+          <view class='res-row'>
+            <view class='res-item label'>活动名称：</view>
+            <view class='res-item desc'>{{item.activityName}}</view>
+          </view>
+          <view class='res-row'>
+            <view class='res-item label'>活动地址：</view>
+            <view class='res-item desc'>{{item.activityLocation}}</view>
+          </view>
+          <view class='res-row'>
+            <view class='res-item label'>举办方：</view>
+            <view class='res-item desc'>{{item.organizer}}</view>
+          </view>
+          <view class='res-row'>
+            <view class='res-item label'>开始时间：</view>
+            <view class='res-item desc'>{{item.beginDate}} {{item.beginTime}}</view>
+            
+          </view>
+          <view class='res-row'>
+            <view class='res-item label'>结束时间：</view>
+            <view class='res-item desc'>{{item.endDate}} {{item.endTime}}</view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+
+    <view class='weui-msg__opr-area'>
+      <view class='weui-btn-area'>
+        <navigator url="/pages/activityList/page/addActivityList/addActivityList">
+          <button class='weui-btn' type='primary'>添加预约</button>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,5 @@
 const app = getApp()
-const Bmob = app.Bmob
+const Bmob = app.bookBmob
 const Academies = Bmob.Object.extend("academyList");
 const acadeniesQuery = new Bmob.Query(Academies);
 const Majors = Bmob.Object.extend("majorList")
@@ -177,8 +177,7 @@ Page({
     wx.showLoading({
       title: '加载中...',
       mask: true,
-      success: function() {
-      }
+      success: function() {}
     })
     let _this = this
     new Promise((resolve, reject) => {

@@ -1,0 +1,33 @@
+<!--pages/activityList/page/showActDetail/showActDetail.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">{{activityName}}</view>
+    <view class="page__desc">活动发起人：{{organizer}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-article">
+      <form class='activity-con' bindsubmit="reservateAct" report-submit="true">
+        <view>
+          开始时间：{{beginDate}} - {{beginTime}}
+        </view>
+        <view>
+          结束时间：{{endDate}} - {{endTime}}
+        </view>
+        <view class='activity-detail'>
+          活动详情：{{activityDetail}}
+        </view>
+      </form>
+    </view>
+
+    <view class='weui-msg__opr-area'>
+      <view class='weui-btn-area'>
+        <button class='weui-btn' type='primary' formType="submit">设置提醒</button>
+      </view>
+      <view class='weui-btn-area'>
+        <navigator open-type='navigateBack'>
+          <button class='weui-btn' type='default'>返回</button>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
